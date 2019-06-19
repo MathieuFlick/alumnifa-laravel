@@ -1,0 +1,406 @@
+* {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "big_noodle_titling";
+    src: url('./../font/big_noodle_titling.ttf');
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+
+}
+
+page-container {
+    position: relative;
+    min-height: 100vh
+}
+
+header {
+    display: grid;
+    grid-template-columns: 2fr 3fr 2fr;
+    background-color: #282828;
+    padding: 0.2%;
+}
+
+#alumnifa {
+    width: 100%;
+}
+
+h1,
+h2 {
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    margin-left: auto;
+    align-items: flex-end;
+}
+
+.dropdown {
+    position: relative;
+    display: inline;
+}
+
+.ul_header {
+    display: inline-block;
+    justify-content: space-around;
+}
+
+button {
+    background-color: transparent;
+    color: #ffffff;
+    font-size: 1.5em;
+    font-family: "big_noodle_titling";
+    border: none;
+    cursor: pointer;
+}
+
+button a:hover {
+    color: #f47801;
+}
+
+button a {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.btn-content {
+    display: none;
+}
+
+.logo {
+    width: 1.85em;
+    height: 1.85em;
+    padding-right: 0.5em;
+}
+
+.logo:hover .active-path {
+    fill: #f47801;
+}
+
+main {
+    margin-bottom: 5em;
+}
+
+#h2_inscription {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+#error_inscription {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#ul_error {
+    text-align: center;
+}
+
+.error_message {
+    color: red;
+    display: none;
+}
+
+#form_inscription {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    padding: 3.5%;
+    width: 33%;
+}
+
+#form_inscription input {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1.5em;
+    width: 16em;
+}
+
+#form_inscription input[type=text] {
+    background: transparent;
+    border: none;
+    border-bottom: 0.1em solid black;
+}
+
+#form_inscription input[type=email] {
+    background: transparent;
+    border: none;
+    border-bottom: 0.1em solid black;
+}
+
+#form_inscription input[type=date] {
+    background: transparent;
+    border: none;
+    border-bottom: 0.1em solid black;
+}
+
+#form_inscription input[type=password] {
+    background: transparent;
+    border: none;
+    border-bottom: 0.1em solid black;
+}
+
+#form_inscription input[type=required] {
+    border-bottom: rgb(255, 0, 0, 0.7)
+}
+
+#form_inscription input[type=submit] {
+    background-color: #f47801;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.4;
+    padding: 0.7em;
+    width: 7em;
+}
+
+#form_inscription input[type=submit]:active {
+    background-color: rgb(244, 120, 1, 0.2);
+    box-shadow: 0 1em #666;
+    transform: translateY(4px);
+}
+
+#form_inscription label {
+    text-align: center;
+    padding-bottom: 2%;
+}
+
+#form_inscription a {
+    display: block;
+    text-align: center;
+}
+
+#form_inscription span {
+    display: block;
+    text-align: center;
+}
+
+.div_form_inscription input {
+    margin-left: 55vw;
+}
+
+#form_recherche {
+    text-align: right;
+    margin-right: 5em;
+}
+
+#recherche {
+    margin-top: 2em;
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+}
+
+#input_recherche {
+    width: 11.8em;
+    height: 1.7em;
+    background-color: #232323;
+    color: white;
+    border: white 0.1em solid;
+    border-radius: 0.5em;
+}
+
+.submit_recherche {
+    width: 6em;
+    height: 1.8em;
+    text-decoration: none;
+    background-color: #f47801;
+    border: white 0.1em solid;
+    border-radius: 0.5em;
+}
+
+#reinit {
+    margin-left: 5em;
+    width: 12em;
+}
+
+footer {
+    position: fixed;
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr;
+    color: white;
+    bottom: 0;
+    width: 100%;
+    height: 9.5em;
+    background-color: #282828;
+}
+
+#adresse-foot {
+    grid-column-start: 3;
+    text-align: center;
+    display: grid;
+}
+
+#liens-foot {
+    grid-column-start: 5;
+    text-align: center;
+    display: grid;
+}
+
+#liens-foot {
+    grid-column-start: 5;
+    text-align: center;
+    display: grid;
+}
+
+#social_networks {
+    text-align: right;
+    margin-top: 0.7em;
+}
+
+#social_networks a {
+    text-decoration: none;
+}
+
+#head-right {
+    margin-right: 2em;
+}
+
+#connexion {
+    display: flex;
+    float: right;
+    flex-direction: column;
+}
+
+.account {
+    width: 7.8em;
+    height: auto;
+    text-decoration: none;
+    text-align: center;
+    color: #282828;
+    background-color: white;
+    border: 0.3em white solid;
+    border-radius: 0.25em;
+    font-family: "big_noodle_titling";
+    font-size: 1em;
+    font-weight: 700;
+    margin: 0.5em;
+}
+
+.account:hover {
+    background-color: #f47801;
+    border: 0.3em #f47801 solid;
+}
+
+.account:active {
+    transform: translateY(2px);
+}
+
+.pencil:hover .active-path {
+    fill: #f47801;
+}
+
+.sous-menu a {
+    text-decoration: none;
+    justify-content: center;
+    color: black;
+}
+
+.sous-menu {
+    display: flex;
+    justify-content: space-around;
+}
+
+#membres {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2em;
+    display: flex;
+    margin: 1em;
+
+}
+
+.nom {
+    color: white;
+    margin: 0;
+    padding-top: 0.2em;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    border-radius: 40%;
+}
+
+.ficheMembre {
+    margin-left: 2em;
+    margin-right: 2em;
+    margin-bottom: 0;
+    color: #f47801;
+    text-align: center;
+    background-color: #282828;
+    padding: 0.7em;
+    border-radius: 5%;
+}
+
+.ficheMembre:hover {
+    opacity: 0.8;
+}
+
+.divphoto {
+    margin: 0;
+    border-radius: 100%;
+}
+
+.photo {
+    border-radius: 100%;
+    border: #f47801 solid 0.255em;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideFromTop {
+    from {
+        transform: translateX(-100px);
+    }
+
+    to {
+        transform: translatex(0px);
+    }
+}
+
+.modal {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    */ display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn .7s both;
+}
+
+.modal-wrapper {
+
+    background-color: #ffffff;
+    width: 500px;
+    max-width: 50vw;
+    height: 50vh;
+    height: 500px;
+    animation: slideFromTop 0.7s both .1s
+}
+
+.js-modal-close {
+    background-color: #282828;
+}
+
+#send_mail {
+    width: 1em;
+    height: 1em;
+}
