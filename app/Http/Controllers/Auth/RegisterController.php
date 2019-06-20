@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -53,13 +54,13 @@ class RegisterController extends Controller
         }
 
         $checkStudent = User::checkStudent([
-            "firstname" => $request['firstname'],
-            "lastname" => $request['lastname'],
-            "dob" => $request['dob']
+            "firstname" => $request->firstname,
+            "lastname" => $request->lastname,
+            "dob" => $request->dob
         ]);
 
         if ($checkStudent) {
-            return User::create([
+            $user = User::create([
                 'firstname' => $request->firstname,
                 'lastname' => $request->lastname,
                 'pseudo' => $request->pseudo,
@@ -67,6 +68,14 @@ class RegisterController extends Controller
                 'dob' => $request->dob,
                 'password' => Hash::make($request->password),
             ]);
+
+            $credentials = $request->only('email', 'password');
+
+            if (Auth::attempt($credentials)) {
+                $user->sendEmailVerificationNotification();
+                return redirect()->intended('account');
+            }
+
         } else {
             return back()->with('error', 'Votre compte étudiant n\'existe pas')->withInput();
         }
