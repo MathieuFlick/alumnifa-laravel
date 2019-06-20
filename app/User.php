@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Students;
 
 class User extends Authenticatable
 {
@@ -36,4 +37,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function checkStudent(Array $datas)
+    {
+        $student = Students::where([
+            ['firstname', '=', $datas['firstname']],
+            ['lastname', '=', $datas['lastname']],
+            ['dob', '=', $datas['dob']]
+        ])->first();
+
+        if($student) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

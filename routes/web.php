@@ -42,3 +42,5 @@ Route::group(['prefix' => 'account', 'middleware' => 'auth', 'as' => 'account.']
     // Logout Routes
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 });
+
+Route::get('directory', 'DirectoryController@showView')->name('directory');

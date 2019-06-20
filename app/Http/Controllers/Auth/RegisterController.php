@@ -6,30 +6,10 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
-    use RegistersUsers;
-
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/account';
-
     /**
      * Create a new controller instance.
      *
@@ -41,21 +21,13 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Show registration form.
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return View
      */
-    protected function validator(array $data)
+    public function showRegistrationForm()
     {
-        return Validator::make($data, [
-            'pseudo' => ['required', 'string', 'max:255', 'unique:users'],
-            'firstname' => ['required', 'string', 'max:255'],
-            'lastname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'dob' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        return view('auth.register');
     }
 
     /**
@@ -64,15 +36,39 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function register(Request $request)
     {
-        return User::create([
-            'pseudo' => $data['pseudo'],
-            'firstname' => $data['firstname'],
-            'lastname' => $data['lastname'],
-            'email' => $data['email'],
-            'dob' => $data['dob'],
-            'password' => Hash::make($data['password']),
+
+        $validation = Validator::make($request->all(), [
+            'pseudo' => ['required', 'string', 'max:255', 'unique:users'],
+            'firstname' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'dob' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+
+        if($validation->fails()) {
+            return back()->withErrors($validation);
+        }
+
+        $checkStudent = User::checkStudent([
+            "firstname" => $request['firstname'],
+            "lastname" => $request['lastname'],
+            "dob" => $request['dob']
+        ]);
+
+        if ($checkStudent) {
+            return User::create([
+                'pseudo' => $request->pseudo,
+                'firstname' => $request['firstname'],
+                'lastname' => $request['lastname'],
+                'email' => $request['email'],
+                'dob' => $request['dob'],
+                'password' => Hash::make($data['password']),
+            ]);
+        } else {
+            return back()->with('error', 'Votre compte étudiant n\'existe pas')->withInput();
+        }
     }
 }

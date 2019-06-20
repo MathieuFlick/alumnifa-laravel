@@ -79,13 +79,13 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
-                        
                         <div class="form-group row mb-0">
                             <div class="col-md-12 text-center">
                                 <button type="submit" class="btn btn-primary">S'inscrire</button>
                             </div>
                         </div>
                     </form>
+                    {{ session('error') ?? null }}
                 </div>
             </div>
         </div>

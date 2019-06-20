@@ -18,9 +18,9 @@
 		</button>
 		
 		<div class="collapse navbar-collapse" id="navbar-menu">
-			<ul class="navbar-nav mr-auto">$
+			<ul class="navbar-nav mr-auto">
 				<li class="nav-item {{ Request::route()->getName() === 'index' ? 'active' : null }}"><a class="nav-link" href="{{ route('index') }}">Accueil</a></li>
-				<li class="nav-item {{ Request::route()->getName() === 'directory' ? 'active' : null }}"><a class="nav-link" href="#">Annuaire</a></li>
+				<li class="nav-item {{ Request::route()->getName() === 'directory' ? 'active' : null }}"><a class="nav-link" href="{{ route('directory')}}">Annuaire</a></li>
 				<li class="nav-item {{ Request::route()->getName() === 'search' ? 'active' : null }}"><a class="nav-link" href="#">Recherche avancée</a></li>
 			</ul>
 			<ul class="navbar-nav ml-auto">
