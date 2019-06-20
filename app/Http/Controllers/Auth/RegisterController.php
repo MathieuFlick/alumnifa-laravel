@@ -60,12 +60,12 @@ class RegisterController extends Controller
 
         if ($checkStudent) {
             return User::create([
+                'firstname' => $request->firstname,
+                'lastname' => $request->lastname,
                 'pseudo' => $request->pseudo,
-                'firstname' => $request['firstname'],
-                'lastname' => $request['lastname'],
-                'email' => $request['email'],
-                'dob' => $request['dob'],
-                'password' => Hash::make($data['password']),
+                'email' => $request->email,
+                'dob' => $request->dob,
+                'password' => Hash::make($request->password),
             ]);
         } else {
             return back()->with('error', 'Votre compte étudiant n\'existe pas')->withInput();

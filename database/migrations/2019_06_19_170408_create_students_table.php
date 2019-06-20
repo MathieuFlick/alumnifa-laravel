@@ -20,10 +20,6 @@ class CreateStudentsTable extends Migration
             $table->date('dob');
             $table->timestamps();
         });
-        
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreign('student_id')->references('id')->on('students');
-        });
     }
 
     /**
