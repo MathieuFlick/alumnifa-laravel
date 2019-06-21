@@ -5,7 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+<<<<<<< HEAD
                 <div class="card-header">{{ __('hello') }}</div>
+=======
+                <div class="card-header">{{ __('Login') }}</div>
+>>>>>>> d572dc6a5be326e3800e1107825f905128cbc1e5
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('auth.login') }}">
@@ -44,7 +48,11 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
+<<<<<<< HEAD
                                     <label class="form-check-label" for="remember">Se souvenir de moi ?</label>
+=======
+                                    <label class="form-check-label" for="remember">Se souvenir de moi ?</label> 
+>>>>>>> d572dc6a5be326e3800e1107825f905128cbc1e5
                                 </div>
                             </div>
                         </div>

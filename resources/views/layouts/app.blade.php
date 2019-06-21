@@ -16,7 +16,11 @@
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> d572dc6a5be326e3800e1107825f905128cbc1e5
 		<div class="collapse navbar-collapse" id="navbar-menu">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item {{ Request::route()->getName() === 'index' ? 'active' : null }}"><a class="nav-link" href="{{ route('index') }}">Accueil</a></li>
@@ -45,7 +49,11 @@
 					<a class="dropdown-item" href="{{ route('auth.login') }}">Se connecter</a>
 					<a class="dropdown-item" href="{{ route('auth.register')}}">S'inscrire</a>
 						<div class="dropdown-divider"></div>
+<<<<<<< HEAD
                     <a class="dropdown-item" href="{{ route('password.request') }}">Mot de passe oublié ?</a>
+=======
+						<a class="dropdown-item" href="#">Mot de passe oublié ?</a>
+>>>>>>> d572dc6a5be326e3800e1107825f905128cbc1e5
 					</div>
 				</li>
 				@endguest
@@ -54,7 +62,11 @@
 	</nav>
 
 	@yield('content')
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> d572dc6a5be326e3800e1107825f905128cbc1e5
 	<footer class="footer">
 		<section class="footer-brand">
 			<img src="{{ asset('images/alumnifa.svg') }}" alt="{{ env('APP_NAME')}}">
@@ -77,8 +89,13 @@
 				</ul>
 			</section>
 		</section>
+<<<<<<< HEAD
 	</footer>
 
+=======
+	</footer>	
+	
+>>>>>>> d572dc6a5be326e3800e1107825f905128cbc1e5
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -87,4 +104,8 @@
 	<script src="{{ asset('js/alumnifa.js') }}"></script>
 	@yield('scripts')
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> d572dc6a5be326e3800e1107825f905128cbc1e5
