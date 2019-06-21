@@ -1,0 +1,87 @@
+/**
+ * @author Mathieu FLICK / Thibault Jamin
+ * @desc Alumn'IFA
+ */
+
+:root {
+    --color-theme: #282828;
+}
+
+.navbar {
+    background-color: var(--color-theme);
+}
+
+.navbar .navbar-brand {
+    width: 200px;
+}
+
+.navbar .navbar-brand img {
+    width: 100%;
+    height: auto;
+}
+
+.navbar #navbar-menu {
+    margin-left: 150px;
+}
+
+.navbar .navbar-nav .nav-item {
+    text-transform: uppercase;
+}
+
+.navbar .navbar-nav .nav-item .nav-link {
+    color: var(--white);
+    font-size: 16px;
+    transition: all ease-in-out .2s;
+}
+
+.navbar .navbar-nav .nav-item.active .nav-link {
+    color: #f47801;
+}
+
+.navbar .navbar-nav .nav-item .nav-link:hover {
+    color: #f47801;
+}
+
+.footer {
+    background-color: var(--color-theme);
+    display: flex;
+    align-items: center;
+    padding: 25px;
+}
+
+.footer .footer-brand {
+    flex: 1;
+}
+
+.footer .footer-brand img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+}
+
+.footer .footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.footer .footer-content .footer-address {
+    color: var(--white);
+    font-size: 14px;
+}
+
+.footer .footer-content .footer-address ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.footer .footer-content .footer-links {
+    min-width: 200px;
+    color: var(--white);
+    font-size: 14px;
+}
+
+.footer .footer-content .footer-links ul {
+    list-style: none;
+    padding-left: 0;
+}
