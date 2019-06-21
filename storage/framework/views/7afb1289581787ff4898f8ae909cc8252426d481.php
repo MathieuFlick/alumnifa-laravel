@@ -2,16 +2,16 @@
 <html lang="fr">
 <head>
 	<meta charset="utf-8">
-	<title>{{env("APP_NAME")}} | @yield('title')</title>
+	<title><?php echo e(env("APP_NAME")); ?> | <?php echo $__env->yieldContent('title'); ?></title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet" href="{{ asset('css/app.css') }}">
-	@yield('styles')
+	<link rel="stylesheet" href="<?php echo e(asset('css/app.css')); ?>">
+	<?php echo $__env->yieldContent('styles'); ?>
 </head>
 <body id="main">
 	<nav class="navbar navbar-expand-lg navbar-dark">
-		<a class="navbar-brand" href="{{ route('index') }}">
-			<img src="{{ asset('images/alumnifa.svg') }}" alt="">
+		<a class="navbar-brand" href="<?php echo e(route('index')); ?>">
+			<img src="<?php echo e(asset('images/alumnifa.svg')); ?>" alt="">
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -19,45 +19,46 @@
 
 		<div class="collapse navbar-collapse" id="navbar-menu">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item {{ Request::route()->getName() === 'index' ? 'active' : null }}"><a class="nav-link" href="{{ route('index') }}">Accueil</a></li>
-				<li class="nav-item {{ Request::route()->getName() === 'directory' ? 'active' : null }}"><a class="nav-link" href="{{ route('directory')}}">Annuaire</a></li>
-				<li class="nav-item {{ Request::route()->getName() === 'search' ? 'active' : null }}"><a class="nav-link" href="#">Recherche avancée</a></li>
+				<li class="nav-item <?php echo e(Request::route()->getName() === 'index' ? 'active' : null); ?>"><a class="nav-link" href="<?php echo e(route('index')); ?>">Accueil</a></li>
+				<li class="nav-item <?php echo e(Request::route()->getName() === 'directory' ? 'active' : null); ?>"><a class="nav-link" href="<?php echo e(route('directory')); ?>">Annuaire</a></li>
+				<li class="nav-item <?php echo e(Request::route()->getName() === 'search' ? 'active' : null); ?>"><a class="nav-link" href="#">Recherche avancée</a></li>
 			</ul>
 			<ul class="navbar-nav ml-auto">
-				@auth
+				<?php if(auth()->guard()->check()): ?>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						{{Auth::user()->pseudo}}
+						<?php echo e(Auth::user()->pseudo); ?>
+
 					</a>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="#">Mon profil</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="{{ route('account.logout') }}">Déconnexion</a>
+						<a class="dropdown-item" href="<?php echo e(route('account.logout')); ?>">Déconnexion</a>
 					</div>
 				</li>
-				@endauth
-				@guest
+				<?php endif; ?>
+				<?php if(auth()->guard()->guest()): ?>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						Mon compte
 					</a>
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="{{ route('auth.login') }}">Se connecter</a>
-					<a class="dropdown-item" href="{{ route('auth.register')}}">S'inscrire</a>
+					<a class="dropdown-item" href="<?php echo e(route('auth.login')); ?>">Se connecter</a>
+					<a class="dropdown-item" href="<?php echo e(route('auth.register')); ?>">S'inscrire</a>
 						<div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ route('password.request') }}">Mot de passe oublié ?</a>
+                    <a class="dropdown-item" href="<?php echo e(route('password.request')); ?>">Mot de passe oublié ?</a>
 					</div>
 				</li>
-				@endguest
+				<?php endif; ?>
 			</ul>
 		</div>
 	</nav>
 
-	@yield('content')
+	<?php echo $__env->yieldContent('content'); ?>
 
 	<footer class="footer">
 		<section class="footer-brand">
-			<img src="{{ asset('images/alumnifa.svg') }}" alt="{{ env('APP_NAME')}}">
+			<img src="<?php echo e(asset('images/alumnifa.svg')); ?>" alt="<?php echo e(env('APP_NAME')); ?>">
 		</section>
 		<section class="footer-content">
 			<section class="footer-address">
@@ -84,7 +85,8 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" async defer></script>
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-	<script src="{{ asset('js/alumnifa.js') }}"></script>
-	@yield('scripts')
+	<script src="<?php echo e(asset('js/alumnifa.js')); ?>"></script>
+	<?php echo $__env->yieldContent('scripts'); ?>
 </body>
 </html>
+<?php /**PATH C:\outils\xampp\htdocs\alumnifa\resources\views/layouts/app.blade.php ENDPATH**/ ?>
