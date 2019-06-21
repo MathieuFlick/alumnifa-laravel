@@ -31,13 +31,13 @@ Route::group(['prefix' => 'auth', 'middleware' => 'guest', 'as' => 'auth.'], fun
     Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 });
 
-Route::group(['prefix' => 'account', 'middleware' => 'auth', 'as' => 'account.'], function () {
+Route::group(['prefix' => 'account', 'middleware' => ['auth', 'verified'], 'as' => 'account.'], function () {
     Route::get('/', 'HomeController@index')->name('index');
 
     // Logout Routes
-    Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 });
 
+Route::get('logout', 'Auth\LoginController@logout')->name('account.logout');
 Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
 Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
