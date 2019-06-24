@@ -6,18 +6,28 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\User as IlluminateUser;
+use Illuminate\Auth\AuthManager;
+use App\Repository\ConversationRepository;
 
 class MessagesController extends Controller
 {
+    public function __construct(ConversationRepository $conversationRepository, AuthManager $auth)
+    {
+        $this->cr = $conversationRepository;
+        $this->auth = $auth;
+    }
     public function index()
     {
-        $users = User::where('id', '!=', Auth::user()->id)->get();
-        return view('messages.index', ['users' => $users]);
+        return view('messages.index', [
+            'users' => $this->cr->getConversation($this->auth->user()->id)
+        ]);
     }
 
     public function show(User $user)
     {
-        $users = User::where('id', '!=', Auth::user()->id)->get();
-        return view('messages.show', compact('users', 'user'));
+        return view('messages.show', [
+            'users' => $this->cr->getConversation($this->auth->user()->id),
+            'user' => $user
+        ]);
     }
 }
