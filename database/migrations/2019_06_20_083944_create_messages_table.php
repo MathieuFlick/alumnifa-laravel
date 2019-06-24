@@ -19,14 +19,13 @@ class CreateMessagesTable extends Migration
             $table->bigInteger('recipient_id')->unsigned();
             $table->string('objet');
             $table->text('body');
-            $table->boolean('read');
-            $table->dateTime('date');
-            $table->timestamps();
+            $table->dateTime('read_at')->nullable();
+            $table->timestamp('date')->useCurrent();
 
             $table->foreign('sender_id')->references('id')->on('users');
             $table->foreign('recipient_id')->references('id')->on('users');
         });
-        
+
     }
 
     /**
