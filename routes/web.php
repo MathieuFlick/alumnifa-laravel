@@ -31,8 +31,13 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth', 'verified'], 'as' 
     // Logout Routes
 });
 
+Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::get('directory', 'DirectoryController@showView')->name('directory');
+    Route::get('messages', 'MessagesController@index')->name('messages');
+    Route::get('messages/conversations/{user}', 'MessagesController@show')->name('conversations');
+});
 
-Route::get('directory', 'DirectoryController@showView')->name('directory');
+
 
 Route::get('logout', 'Auth\LoginController@logout')->name('account.logout');
 Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
