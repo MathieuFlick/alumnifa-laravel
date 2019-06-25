@@ -30,4 +30,13 @@ class MessagesController extends Controller
             'user' => $user
         ]);
     }
+    public function store(User $user, $request)
+    {
+        $this->cr->createMessage(
+            $resquest->get('content'),
+            $this->auth->user()->id,
+            $user->id
+        );
+        return redirect(route('conversation', ['id' => $user->id]));
+    }
 }

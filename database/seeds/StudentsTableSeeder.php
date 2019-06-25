@@ -18,4 +18,3 @@ class StudentsTableSeeder extends Seeder
             'dob' => '1981-10-11'
         ]);
     }
-}

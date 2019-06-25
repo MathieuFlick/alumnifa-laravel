@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('directory', 'DirectoryController@showView')->name('directory');
     Route::get('messages', 'MessagesController@index')->name('messages');
     Route::get('messages/conversations/{user}', 'MessagesController@show')->name('conversations');
+    Route::post('messages/conversations/{user}', 'MessagesController@store');
 });
 
 
