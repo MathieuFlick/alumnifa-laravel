@@ -11,6 +11,12 @@
     </form>
 </div>
 <section id="membres">
+       @forelse ($users as $user)
+            <li>{{ $user->firstname }}</li>
+            <li>{{ $user->lastname }}</li>
+        @empty
+            <p>No users</p>
+        @endforelse
     <div class="ficheMembre">
         <div class="divphoto">
             <img class="photo" src="" width="">
