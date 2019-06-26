@@ -10,33 +10,81 @@
         <input class="submit_recherche" type="submit" value="Rechercher" name="submit">
     </form>
 </div>
-<section id="membres">
-       @forelse ($users as $user)
-            <li>{{ $user->firstname }}</li>
-            <li>{{ $user->lastname }}</li>
+<div id="membres">
+    <div class="card-list">
+        @forelse ($users as $user)
+            <div class="card" data-toggle="modal" data-target="#info-{{ $user->id }}">
+                <img class="card-img-top" src="{{ asset('images/profil/'.$user->id.'.JPG') }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ $user->firstname }} {{ $user->lastname }}</h5>
+                </div>
+            </div>
         @empty
-            <p>No users</p>
+            <p>No users</p>.
         @endforelse
-    <div class="ficheMembre">
-        <div class="divphoto">
-            <img class="photo" src="" width="">
-        </div>
-    <p class=""></p>
-    <a href="">Voir le profil</a></div>
-    
-    <div id="" class='modal' aria-hidden="true" role="dialog" aria-labelledby="title_modal" style="display:none">
-        <div class="modal-wrapper js-modal-stop">
-            <button class="js-modal-close">Retour</button>
-            <h3 id="title_modal">profil de </h3>
-            <ul>
-                <li>Prénom :</li>
-                <li>Nom : </li>
-                <li>Pseudo: </li>
-                <li>Contact : <a href=""><img src=""></a></li>
-                <li>Poste occupé : </li>
-                <li>Entreprise actuelle : </li> 
-            </ul>
-        </div>
     </div>
-</section>
+</div>
+@endsection
+
+@section('modals')
+    @foreach ($users as $user)
+        <div class="modal fade" id="info-{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content side">
+                    <div class="modal-header grey">
+                        <h5 class="modal-title" id="exampleModalLabel">{{ $user->firstname }} {{ $user->lastname }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <img class="card-img-top photo" src="{{ asset('images/profil/'.$user->id.'.JPG') }}">
+                                </div>
+                                <div class="col">
+                                    <ul>
+                                        <li>Pseudonyme: {{ $user->pseudo }}</li>
+                                        <li>Promotion: </li>
+                                        <li>Entreprise actuelle : </li>
+                                        <li>Poste occupé : </li>
+                                        <li>Contact : <a href=""><img src="{{ asset('images/send.svg') }}"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer grey">
+                        <button type="button" class="btn btn-light orange" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+@endsection
+
+@section('styles')
+<style>
+.card-list{
+    display: flex;
+    justify-content: space-around;
+}
+.card{
+    max-width: 200px;
+}
+.photo{
+    border-radius: 100%;
+    border: #f47801 solid 0.255em;
+}
+.grey{
+    background-color: #282828;
+}
+.side{
+    width: 800px;
+}
+.orange:hover{
+    background-color: #f47801;
+}
+</style>
 @endsection

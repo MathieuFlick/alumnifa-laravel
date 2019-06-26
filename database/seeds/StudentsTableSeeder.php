@@ -26,14 +26,14 @@ class StudentsTableSeeder extends Seeder
             ]);
 
         DB::table('students')->insert([
-            'firstname' => 'Padilla',
-            'lastname' => 'Hervé',
+            'firstname' => 'Hervé',
+            'lastname' => 'Padilla',
             'dob' => '1981-01-01'
         ]);
 
         DB::table('students')->insert([
-            'firstname' => 'Ayed',
-            'lastname' => 'Nizar',
+            'firstname' => 'Nizar',
+            'lastname' => 'Ayed',
             'dob' => '1975-04-16'
         ]);
 
@@ -56,8 +56,8 @@ class StudentsTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'firstname' => 'Padilla',
-            'lastname' => 'Hervé',
+            'firstname' => 'Hervé',
+            'lastname' => 'Padilla',
             'dob' => '1981-01-01',
             'email' => 'hervepadilla@gmail.com',
             'pseudo' => 'herpadweb',
@@ -65,8 +65,8 @@ class StudentsTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'firstname' => 'Ayed',
-            'lastname' => 'Nizar',
+            'firstname' => 'Nizard',
+            'lastname' => 'Ayed',
             'dob' => '1975-04-16',
             'email' => 'nizar.ayed@upgrade-code.org',
             'pseudo' => 'topniz',
