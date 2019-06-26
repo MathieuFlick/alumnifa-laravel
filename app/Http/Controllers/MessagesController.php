@@ -2,41 +2,79 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\User as IlluminateUser;
+use Illuminate\Http\Request;
 use Illuminate\Auth\AuthManager;
-use App\Repository\ConversationRepository;
+use App\Messages;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MessagesController extends Controller
 {
-    public function __construct(ConversationRepository $conversationRepository, AuthManager $auth)
+    protected $user;
+
+    public function __construct()
     {
-        $this->cr = $conversationRepository;
-        $this->auth = $auth;
-    }
-    public function index()
-    {
-        return view('messages.index', [
-            'users' => $this->cr->getConversation($this->auth->user()->id)
-        ]);
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+            return $next($request);
+        });
     }
 
-    public function show(User $user)
+    public function index()
     {
-        return view('messages.show', [
-            'users' => $this->cr->getConversation($this->auth->user()->id),
-            'user' => $user
-        ]);
+        $users = User::where('id', '!=', $this->user->id)->get();
+        $messages = DB::table('messages')
+            ->join('users', 'messages.sender_id', '=', 'users.id')
+            ->select([
+                'messages.id as message_id',
+                'messages.objet',
+                'users.firstname',
+                'users.lastname'
+            ])
+            ->where('messages.recipient_id', $this->user->id)
+            ->get();
+
+        return view('messages.index')->with(['users' => $users, 'messages' => $messages]);
     }
-    public function store(User $user, $request)
+
+    public function read(int $message_id)
     {
-        $this->cr->createMessage(
-            $resquest->get('content'),
-            $this->auth->user()->id,
-            $user->id
-        );
-        return redirect(route('conversation', ['id' => $user->id]));
+        $users = User::where('id', '!=', $this->user->id)->get();
+        $message = DB::table('messages')
+            ->join('users', 'messages.sender_id', '=', 'users.id')
+            ->where('messages.id', $message_id)
+            ->first();
+
+
+        // $message_sender = $messages = DB::table('messages')
+        //     ->join('users', 'messages.sender_id', '=', 'users.id')
+        //     ->where('messages.id', $this->user->id)
+        //     ->get();
+
+        // $message_recipient = $messages = DB::table('messages')
+        //     ->join('users', 'messages.recipient_id', '=', 'users.id')
+        //     ->where('messages.id', $id)
+        //     ->get();
+
+        return view('messages.read')->with(['users' => $users, 'message' => $message]);
+    }
+
+    public function reply(Request $request, Int $answer_id)
+    {
+        $users = User::where('id', '!=', $this->user->id)->get();
+        $reply = User::where('id', $answer_id)->first();
+        return view('messages.reply')->with(['users' => $users, 'reply' => $reply]);
+    }
+
+    public function store(Request $request, Int $recipient_id)
+    {
+        Messages::create([
+            'sender_id' => $this->user->id,
+            'recipient_id' => $recipient_id,
+            'objet' => $request->object,
+            'body' => $request->content
+        ]);
+        return back();
     }
 }
