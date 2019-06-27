@@ -33,9 +33,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('directory', 'DirectoryController@showView')->name('directory');
         Route::get('messages', 'MessagesController@index')->name('messages');
+        Route::get('messages/delete/{id}', 'MessagesController@deleteMessage')->name('deleteMessage');
         Route::get('messages/conversations/{id}', 'MessagesController@reply')->name('conversations');
         Route::post('messages/conversations/{id}', 'MessagesController@store');
         Route::get('messages/read/{id}', 'MessagesController@read')->name('read');
+        Route::get('messages/write', 'MessagesController@writeMessage')->name('writeMessage');
+        Route::get('messages/autocomplete', 'MessagesController@getAutocomplete')->name('autocomplete');
     });
 
 

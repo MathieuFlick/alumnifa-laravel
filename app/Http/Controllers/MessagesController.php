@@ -8,6 +8,8 @@ use Illuminate\Auth\AuthManager;
 use App\Messages;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class MessagesController extends Controller
 {
@@ -29,6 +31,7 @@ class MessagesController extends Controller
             ->select([
                 'messages.id as message_id',
                 'messages.objet',
+                'messages.read',
                 'users.firstname',
                 'users.lastname'
             ])
@@ -43,21 +46,14 @@ class MessagesController extends Controller
         $users = User::where('id', '!=', $this->user->id)->get();
         $message = DB::table('messages')
             ->join('users', 'messages.sender_id', '=', 'users.id')
-            ->where('messages.id', $message_id)
-            ->first();
+            ->where('messages.id', $message_id);
+
+        $message->update([
+            'read' => 1
+        ]);
 
 
-        // $message_sender = $messages = DB::table('messages')
-        //     ->join('users', 'messages.sender_id', '=', 'users.id')
-        //     ->where('messages.id', $this->user->id)
-        //     ->get();
-
-        // $message_recipient = $messages = DB::table('messages')
-        //     ->join('users', 'messages.recipient_id', '=', 'users.id')
-        //     ->where('messages.id', $id)
-        //     ->get();
-
-        return view('messages.read')->with(['users' => $users, 'message' => $message]);
+        return view('messages.read')->with(['users' => $users, 'message' => $message->first()]);
     }
 
     public function reply(Request $request, Int $answer_id)
@@ -69,12 +65,47 @@ class MessagesController extends Controller
 
     public function store(Request $request, Int $recipient_id)
     {
-        Messages::create([
-            'sender_id' => $this->user->id,
-            'recipient_id' => $recipient_id,
-            'objet' => $request->object,
-            'body' => $request->content
+        $validator = Validator::make($request->all(), [
+            'object' => 'required|max:100',
+            'content' => 'required'
         ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        } else {
+            Messages::create([
+                'sender_id' => $this->user->id,
+                'recipient_id' => $recipient_id,
+                'objet' => $request->object,
+                'body' => $request->content
+            ]);
+            return back()->with('message', 'Votre message a bien été envoyé !');
+        }
+    }
+
+    public function deleteMessage(int $messageId)
+    {
+        $message = Messages::where('id', $messageId)->first();
+        $message->delete();
         return back();
+    }
+
+    public function writeMessage()
+    {
+        $users = User::where('id', '!=', $this->user->id)->get();
+        return view('messages.write')->with(['users' => $users]);
+    }
+
+    public function getAutocomplete()
+    {
+        $users = User::where('id', '!=', $this->user->id)->get();
+        $data = [];
+
+        for ($i = 0; $i < count($users); $i++) {
+            $data[$i]['label'] = $users[$i]->firstname . " " . $users[$i]->lastname;
+            $data[$i]['value'] = $users[$i]->id;
+        }
+
+        return response()->json($data);
     }
 }
