@@ -30,7 +30,8 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('directory', 'DirectoryController@showView')->name('directory');
         Route::post('directory', 'DirectoryController@showView')->name('directory');
         Route::get('directory/autocomplete', 'DirectoryController@getAutocomplete')->name('autocomplete');
-    });
+    }); 
+    
 
     Route::group(['prefix' => 'account', 'middleware' => ['auth', 'verified'], 'as' => 'account.'], function () {
         Route::get('/', 'HomeController@index')->name('index');
