@@ -10,7 +10,7 @@
     @yield('styles')
 </head>
 <body id="main">
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark mb-5">
         <a class="navbar-brand" href="{{ route('index') }}">
             <img src="{{ asset('images/alumnifa.svg') }}" alt="">
         </a>
@@ -55,7 +55,7 @@
 
     <div class="container">@yield('content')</div>
 
-    <footer class="footer">
+    <footer class="footer mt-5">
         <section class="footer-brand">
             <img src="{{ asset('images/alumnifa.svg') }}" alt="{{ env('APP_NAME')}}">
         </section>
@@ -78,7 +78,6 @@
             </section>
         </section>
     </footer>
-
     @yield('modals')
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>

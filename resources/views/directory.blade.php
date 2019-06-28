@@ -2,12 +2,10 @@
 @section('title', 'Annuaire')
 @section('content')
 <div id="recherche">
-    <form>
-        {{-- <input id="reinit" class="submit_recherche" type="submit" value="Voir tous les membres" name="reinit"> --}}
-    </form>
     <form id="form_recherche" method="POST">
-        <input type="text" name="search" id="recherche" placeholder="Rechercher dans l'annuaire" >
-        {{-- <input class="submit_recherche" type="submit" value="Rechercher" name="submit"> --}}
+        @csrf
+        <input type="text" name="search" id="recherche" placeholder="Rechercher dans l'annuaire">
+        <input class="btn btn-light orange" type="submit" value="Rechercher" name="submit">
     </form>
 </div>
 <div id="membres">
@@ -65,26 +63,25 @@
 
 @section('scripts')
 <script>
-    let autocomplete = [];
+    let data = [];
     fetch('/directory/autocomplete').then(response => {
         return response.json()
-    }).then(data => {
-        for (let i = 0; i < data.length; i++) {
-            autocomplete.push(data[i])
+    }).then(json => {
+        for (let i = 0; i < json.length; i++) {
+            data.push(json[i])
         }
     })
-    $('#recherche').autocomplete({
-        source: autocomplete,
-        // focus: function( event, ui ) {
-        //     $("#recherche").val(ui.item.label);
-        //     return false;
-        // },
-        // select: function( event, ui ) {
-        //     $('#recherche').val(ui.item.label)
-        //     $('#recherche_id').val(ui.item.value)
 
-        //     return false
-        // }
+    $('#recherche').autocomplete({
+        source: data,
+        focus: function( event, ui ) {
+            $("#recherche").val(ui.item.label);
+            return false;
+        },
+        select: function( event, ui ) {
+            $('#recherche').val(ui.item.label)
+            return false
+        }
     })
 </script>
 @endsection
@@ -103,8 +100,10 @@
     text-align: center;
 }
 .card-title{
-    margin-top: 1%;
-    margin-bottom: 1%;
+    background-color: #282828;
+    padding-top: 2px;
+    padding-bottom: 6px;
+    margin-bottom: 0;
 }
 .photo{
     border-radius: 100%;
@@ -135,6 +134,11 @@ ul.limodal li{
 
 .bg-dark{
     background-color : red;
-} 
+}
+
+#recherche{
+    
+
+}
 </style>
 @endsection
