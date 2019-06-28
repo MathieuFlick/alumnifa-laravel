@@ -26,11 +26,14 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('register', 'Auth\RegisterController@register');
     });
 
-    Route::group(['prefix' => 'account', 'middleware' => ['auth', 'verified'], 'as' => 'account.'], function () {
-        Route::get('/', 'HomeController@index')->name('index');
+    Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('directory', 'DirectoryController@showView')->name('directory');
         Route::post('directory', 'DirectoryController@showView')->name('directory');
         Route::get('directory/autocomplete', 'DirectoryController@getAutocomplete')->name('autocomplete');
+    });
+
+    Route::group(['prefix' => 'account', 'middleware' => ['auth', 'verified'], 'as' => 'account.'], function () {
+        Route::get('/', 'HomeController@index')->name('index');
       
         Route::group(['prefix' => 'messages', 'as' => 'messages.'], function () {
             Route::get('/', 'MessagesController@index')->name('index');
