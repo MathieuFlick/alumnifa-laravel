@@ -17,8 +17,10 @@
             <form>
                 @csrf
                 <input type="hidden" id="recipient_id" name="recipient_id">
-                <input type="email" class="form-control" id="recipient" name="recipient"  placeholder="Entrez ici le destinataire du message">
+                <input type="text" class="form-control" id="recipient" name="recipient"  placeholder="Entrez ici le destinataire du message">
+                <input type="text" class="form-control" id="object" name="object"  placeholder="Objet">
                 <textarea name="content" placeholder="Écrivez votre message" rows="5"class="form-control mt-5"></textarea>
+                <button class="btn btn-primary" type="submit">Envoyer</button>
             </form>
         </div>
     </div>

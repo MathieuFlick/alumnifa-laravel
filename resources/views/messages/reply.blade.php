@@ -18,7 +18,7 @@
                             {{session()->get('message')}}
                         </div>
                     @endif
-                    <button class="btn btn-primary" type="submit">Envoyer</button>
+
                 </form>
             </div>.
         </div>

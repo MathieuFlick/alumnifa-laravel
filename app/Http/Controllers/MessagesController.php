@@ -90,10 +90,28 @@ class MessagesController extends Controller
         return back();
     }
 
-    public function writeMessage()
+    public function writeMessage(Request $request)
     {
         $users = User::where('id', '!=', $this->user->id)->get();
         return view('messages.write')->with(['users' => $users]);
+    }
+    public function storeWrite(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'object' => 'required|max:100',
+            'content' => 'required',
+            'recipient_id' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+        Messages::create([
+            'sender_id' => $this->user->id,
+            'recipient_id' => $request->recipient_id,
+            'objet' => $request->object,
+            'body' => $request->content
+        ]);
     }
 
     public function getAutocomplete()

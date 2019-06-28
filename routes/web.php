@@ -38,6 +38,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('messages/conversations/{id}', 'MessagesController@store');
         Route::get('messages/read/{id}', 'MessagesController@read')->name('read');
         Route::get('messages/write', 'MessagesController@writeMessage')->name('writeMessage');
+        Route::get('messages/write', 'MessagesController@storeWrite')->name('storeWriteMessage');
         Route::get('messages/autocomplete', 'MessagesController@getAutocomplete')->name('autocomplete');
     });
 
