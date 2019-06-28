@@ -4,8 +4,8 @@
 <div id="recherche">
     <form id="form_recherche" method="POST">
         @csrf
-        <input type="hidden" name="search_id" id="recherche_id">
-        <input type="text" name="search" id="recherche_label" placeholder="Rechercher dans l'annuaire">
+        <input type="text" name="search" id="recherche" placeholder="Rechercher dans l'annuaire">
+        <input class="btn btn-light orange" type="submit" value="Rechercher" name="submit">
     </form>
 </div>
 <div id="membres">
@@ -72,15 +72,14 @@
         }
     })
 
-    $('#recherche_label').autocomplete({
+    $('#recherche').autocomplete({
         source: data,
         focus: function( event, ui ) {
-            $("#recherche_label").val(ui.item.label);
+            $("#recherche").val(ui.item.label);
             return false;
         },
         select: function( event, ui ) {
-            $('#recherche_label').val(ui.item.label)
-            $('#recherche_id').val(ui.item.value)
+            $('#recherche').val(ui.item.label)
             return false
         }
     })
@@ -101,8 +100,10 @@
     text-align: center;
 }
 .card-title{
-    margin-top: 1%;
-    margin-bottom: 1%;
+    background-color: #282828;
+    padding-top: 2px;
+    padding-bottom: 6px;
+    margin-bottom: 0;
 }
 .photo{
     border-radius: 100%;
@@ -133,6 +134,11 @@ ul.limodal li{
 
 .bg-dark{
     background-color : red;
-} 
+}
+
+#recherche{
+    
+
+}
 </style>
 @endsection
