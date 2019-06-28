@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use Symfony\Component\Mime\Message;
 
 class MessagesController extends Controller
 {
@@ -95,9 +96,10 @@ class MessagesController extends Controller
         $users = User::where('id', '!=', $this->user->id)->get();
         return view('messages.write')->with(['users' => $users]);
     }
-    public function storeWrite(Request $request)
+    public function storeWriteMessage(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'destinataire' => 'required',
             'object' => 'required|max:100',
             'content' => 'required',
             'recipient_id' => 'required'
@@ -109,9 +111,10 @@ class MessagesController extends Controller
         Messages::create([
             'sender_id' => $this->user->id,
             'recipient_id' => $request->recipient_id,
-            'objet' => $request->object,
+            'objet' => $request->objet,
             'body' => $request->content
         ]);
+        return back()->with('message', 'Votre message a bien été envoyé !');
     }
 
     public function getAutocomplete()
@@ -125,5 +128,38 @@ class MessagesController extends Controller
         }
 
         return response()->json($data);
+    }
+    public function sent()
+    {
+        $users = User::where('id', '!=', $this->user->id)->get();
+        $messages = DB::table('messages')
+            ->join('users', 'messages.recipient_id', '=', 'users.id')
+            ->select([
+                'messages.id as message_id',
+                'messages.objet',
+                'messages.read',
+                'users.firstname',
+                'users.lastname'
+            ])
+            ->where('sender_id', $this->user->id)
+            ->get();
+
+        return view('messages.sent')->with(['messages' => $messages, 'users' => $users]);
+    }
+    public function sentRead(int $message_id)
+    {
+        $users = User::where('id', '!=', $this->user->id)->get();
+        $message = DB::table('messages')
+            ->join('users', 'messages.sender_id', '=', 'users.id')
+            ->where('messages.id', $message_id);
+
+        return view('messages.sentRead')->with(['users' => $users, 'message' => $message->first()]);
+    }
+
+    public function sentDelete(int $message_id)
+    {
+        $message = Messages::where('id', $message_id)->first();
+        $message->delete();
+        return back();
     }
 }
