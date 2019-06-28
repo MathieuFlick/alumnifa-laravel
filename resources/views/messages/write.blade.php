@@ -14,14 +14,19 @@
             </div>
         </div>
         <div class="col-md-9">
-            <form>
-                @csrf
-                <input type="hidden" id="recipient_id" name="recipient_id">
-                <input type="text" class="form-control" id="recipient" name="recipient"  placeholder="Entrez ici le destinataire du message">
-                <input type="text" class="form-control" id="object" name="object"  placeholder="Objet">
-                <textarea name="content" placeholder="Écrivez votre message" rows="5"class="form-control mt-5"></textarea>
-                <button class="btn btn-primary" type="submit">Envoyer</button>
-            </form>
+            <div class='card-header'>
+                <form class="form-group" method="POST">
+                    @csrf
+                    <input type="hidden" id="recipient_id" name="recipient_id">
+                    <input type="text" class="form-control" id="destinataire" name="destinataire"  placeholder="Entrez ici le destinataire du message">
+                    <small class="text-danger">{{ $errors->has('destinataire') ? $errors->first('destinataire') : null }}</small>
+                    <input type="text" class="form-control" id="object" name="object"  placeholder="Objet">
+                    <small class="text-danger">{{ $errors->has('object') ? $errors->first('object') : null }}</small>
+                    <textarea name="content" placeholder="Écrivez votre message" rows="5"class="form-control mt-5"></textarea>
+                    <small class="text-danger">{{ $errors->has('content') ? $errors->first('content') : null }}</small>
+                    <button class="btn btn-primary" type="submit">Envoyer</button>
+                </form>
+            <div class='card-body conversations'>
         </div>
     </div>
 </div>

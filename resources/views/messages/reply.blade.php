@@ -9,16 +9,16 @@
                     @csrf
                     <div class="form-group">
                         <input type="text" name="object" class="form-control" placeholder='objet'>
-                        <small class="text-danger">{{ $errors->has('object') ? $errors->first('object') : null }}</small>
+                        <small class="text-danger">{{ $errors->has('objet') ? $errors->first('object') : null }}</small>
                         <textarea name="content" placeholder="Écrivez votre message" class="form-control"></textarea>
                         <small class="text-danger">{{ $errors->has('content') ? $errors->first('content') : null }}</small>
+                        <button class="btn btn-primary" type="submit">Envoyer</button>
                     </div>
                     @if(session()->has('message'))
                         <div class="alert alert-success">
                             {{session()->get('message')}}
                         </div>
                     @endif
-
                 </form>
             </div>.
         </div>
