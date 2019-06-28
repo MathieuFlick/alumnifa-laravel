@@ -32,6 +32,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('directory', 'DirectoryController@showView')->name('directory');
+        Route::get('directory/autocomplete', 'DirectoryController@getAutocomplete')->name('autocomplete');
         Route::get('messages', 'MessagesController@index')->name('messages');
         Route::get('messages/delete/{id}', 'MessagesController@deleteMessage')->name('deleteMessage');
         Route::get('messages/conversations/{id}', 'MessagesController@reply')->name('conversations');
@@ -52,7 +53,4 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
     Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
     Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
-
-
-    Route::get('directory', 'DirectoryController@showView')->name('directory');
 });

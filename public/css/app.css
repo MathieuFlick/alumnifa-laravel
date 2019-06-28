@@ -42,6 +42,10 @@
     color: #f47801;
 }
 
+.wrapper {
+    padding: 25px;
+}
+
 .footer {
     background-color: var(--color-theme);
     display: flex;
@@ -85,3 +89,4 @@
     list-style: none;
     padding-left: 0;
 }
+
