@@ -3,40 +3,138 @@
 @section('content')
 <div id="recherche">
     <form>
-        <input id="reinit" class="submit_recherche" type="submit" value="Voir tous les membres" name="reinit">
+        {{-- <input id="reinit" class="submit_recherche" type="submit" value="Voir tous les membres" name="reinit"> --}}
     </form>
     <form id="form_recherche" method="POST">
-        <input id="input_recherche" type="text" name="search" id="recherche" placeholder="Rechercher dans l'annuaire" >
-        <input class="submit_recherche" type="submit" value="Rechercher" name="submit">
+        <input type="text" name="search" id="recherche" placeholder="Rechercher dans l'annuaire" >
+        {{-- <input class="submit_recherche" type="submit" value="Rechercher" name="submit"> --}}
     </form>
 </div>
-<section id="membres">
-       @forelse ($users as $user)
-            <li>{{ $user->firstname }}</li>
-            <li>{{ $user->lastname }}</li>
+<div id="membres">
+    <div class="card-list">
+        @forelse ($users as $user)
+            <div class="card bg-dark text-white" data-toggle="modal" data-target="#info-{{ $user->id }}">
+                <img class="card-img-top" src="{{ asset('images/profil/'.$user->id.'.JPG') }}">
+                <h5 class="card-title">{{ $user->firstname }} {{ $user->lastname }}</h5>
+            </div>
         @empty
-            <p>No users</p>
+            <p>No users</p>.
         @endforelse
-    <div class="ficheMembre">
-        <div class="divphoto">
-            <img class="photo" src="" width="">
-        </div>
-    <p class=""></p>
-    <a href="">Voir le profil</a></div>
-    
-    <div id="" class='modal' aria-hidden="true" role="dialog" aria-labelledby="title_modal" style="display:none">
-        <div class="modal-wrapper js-modal-stop">
-            <button class="js-modal-close">Retour</button>
-            <h3 id="title_modal">profil de </h3>
-            <ul>
-                <li>Prénom :</li>
-                <li>Nom : </li>
-                <li>Pseudo: </li>
-                <li>Contact : <a href=""><img src=""></a></li>
-                <li>Poste occupé : </li>
-                <li>Entreprise actuelle : </li> 
-            </ul>
-        </div>
     </div>
-</section>
+</div>
+@endsection
+
+@section('modals')
+    @foreach ($users as $user)
+        <div class="modal fade" id="info-{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content side">
+                    <div class="modal-header grey">
+                        <h3 class="modal-title" id="exampleModalLabel">{{ $user->firstname }} {{ $user->lastname }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span class="text-white" aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <img class="card-img-top photo" src="{{ asset('images/profil/'.$user->id.'.JPG') }}" alt="{{ $user->pseudo }}">
+                                </div>
+                                <div class="col">
+                                    <ul class="limodal">
+                                        <li>Pseudonyme : {{ $user->pseudo }}</li>
+                                        <li>Date de naissance : {{ $user->dob->format('d/m/Y') }}</li>
+                                        <li>Promotion : {{ $user->promo }}</li>
+                                        <li>Entreprise actuelle : {{ $user->company }}</li>
+                                        <li>Poste occupé : {{ $user->post }}</li>
+                                        <li>Contact : <a href=""><img src="{{ asset('images/send.svg') }}"></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer grey">
+                        <button type="button" class="btn btn-light orange" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+@endsection
+
+@section('scripts')
+<script>
+    let autocomplete = [];
+    fetch('/directory/autocomplete').then(response => {
+        return response.json()
+    }).then(data => {
+        for (let i = 0; i < data.length; i++) {
+            autocomplete.push(data[i])
+        }
+    })
+    $('#recherche').autocomplete({
+        source: autocomplete,
+        // focus: function( event, ui ) {
+        //     $("#recherche").val(ui.item.label);
+        //     return false;
+        // },
+        // select: function( event, ui ) {
+        //     $('#recherche').val(ui.item.label)
+        //     $('#recherche_id').val(ui.item.value)
+
+        //     return false
+        // }
+    })
+</script>
+@endsection
+
+@section('styles')
+<style>
+.card-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 1%;
+}
+.card{
+    width:200px;
+    margin-top: 1%;
+    text-align: center;
+}
+.card-title{
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+.photo{
+    border-radius: 100%;
+    border: #f47801 solid 6px;
+}
+.grey{
+    background-color: #282828;
+    color: white;
+}
+.side{
+    width: 800px;
+}
+.orange{
+    border:none;
+    background-color: #f47801;
+}
+.orange:hover{
+    background-color: #white;
+}
+.limodal{
+    list-style: none;
+    margin-top: 18%;
+    margin-left: 8%;
+}
+ul.limodal li{
+    margin-bottom: 5%;
+}
+
+.bg-dark{
+    background-color : red;
+} 
+</style>
 @endsection
