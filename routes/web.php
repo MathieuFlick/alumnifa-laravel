@@ -31,6 +31,7 @@ Route::group(['prefix' => 'account', 'middleware' => ['auth', 'verified'], 'as' 
 
 Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('directory', 'DirectoryController@showView')->name('directory');
+    Route::get('directory/autocomplete', 'DirectoryController@getAutocomplete')->name('autocomplete');
     Route::get('messages', 'MessagesController@index')->name('messages');
     Route::get('messages/conversations/{user}', 'MessagesController@show')->name('conversations');
     Route::post('messages/conversations/{user}', 'MessagesController@store');
@@ -46,6 +47,7 @@ Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+
 
 
 Route::get('directory', 'DirectoryController@showView')->name('directory');

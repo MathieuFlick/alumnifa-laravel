@@ -3,21 +3,19 @@
 @section('content')
 <div id="recherche">
     <form>
-        <input id="reinit" class="submit_recherche" type="submit" value="Voir tous les membres" name="reinit">
+        {{-- <input id="reinit" class="submit_recherche" type="submit" value="Voir tous les membres" name="reinit"> --}}
     </form>
     <form id="form_recherche" method="POST">
-        <input id="input_recherche" type="text" name="search" id="recherche" placeholder="Rechercher dans l'annuaire" >
-        <input class="submit_recherche" type="submit" value="Rechercher" name="submit">
+        <input type="text" name="search" id="recherche" placeholder="Rechercher dans l'annuaire" >
+        {{-- <input class="submit_recherche" type="submit" value="Rechercher" name="submit"> --}}
     </form>
 </div>
 <div id="membres">
     <div class="card-list">
         @forelse ($users as $user)
-            <div class="card" data-toggle="modal" data-target="#info-{{ $user->id }}">
+            <div class="card bg-dark text-white" data-toggle="modal" data-target="#info-{{ $user->id }}">
                 <img class="card-img-top" src="{{ asset('images/profil/'.$user->id.'.JPG') }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $user->firstname }} {{ $user->lastname }}</h5>
-                </div>
+                <h5 class="card-title">{{ $user->firstname }} {{ $user->lastname }}</h5>
             </div>
         @empty
             <p>No users</p>.
@@ -32,7 +30,7 @@
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content side">
                     <div class="modal-header grey">
-                        <h5 class="modal-title" id="exampleModalLabel">{{ $user->firstname }} {{ $user->lastname }}</h5>
+                        <h3 class="modal-title" id="exampleModalLabel">{{ $user->firstname }} {{ $user->lastname }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span class="text-white" aria-hidden="true">&times;</span>
                         </button>
@@ -41,14 +39,15 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col">
-                                    <img class="card-img-top photo" src="{{ asset('images/profil/'.$user->id.'.JPG') }}">
+                                    <img class="card-img-top photo" src="{{ asset('images/profil/'.$user->id.'.JPG') }}" alt="{{ $user->pseudo }}">
                                 </div>
                                 <div class="col">
-                                    <ul>
-                                        <li>Pseudonyme: {{ $user->pseudo }}</li>
-                                        <li>Promotion: </li>
-                                        <li>Entreprise actuelle : </li>
-                                        <li>Poste occupé : </li>
+                                    <ul class="limodal">
+                                        <li>Pseudonyme : {{ $user->pseudo }}</li>
+                                        <li>Date de naissance : {{ $user->dob->format('d/m/Y') }}</li>
+                                        <li>Promotion : {{ $user->promo }}</li>
+                                        <li>Entreprise actuelle : {{ $user->company }}</li>
+                                        <li>Poste occupé : {{ $user->post }}</li>
                                         <li>Contact : <a href=""><img src="{{ asset('images/send.svg') }}"></a></li>
                                     </ul>
                                 </div>
@@ -64,18 +63,52 @@
     @endforeach
 @endsection
 
+@section('scripts')
+<script>
+    let autocomplete = [];
+    fetch('/directory/autocomplete').then(response => {
+        return response.json()
+    }).then(data => {
+        for (let i = 0; i < data.length; i++) {
+            autocomplete.push(data[i])
+        }
+    })
+    $('#recherche').autocomplete({
+        source: autocomplete,
+        // focus: function( event, ui ) {
+        //     $("#recherche").val(ui.item.label);
+        //     return false;
+        // },
+        // select: function( event, ui ) {
+        //     $('#recherche').val(ui.item.label)
+        //     $('#recherche_id').val(ui.item.value)
+
+        //     return false
+        // }
+    })
+</script>
+@endsection
+
 @section('styles')
 <style>
 .card-list{
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
+    margin-bottom: 1%;
 }
 .card{
-    max-width: 200px;
+    width:200px;
+    margin-top: 1%;
+    text-align: center;
+}
+.card-title{
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 .photo{
     border-radius: 100%;
-    border: #f47801 solid 0.255em;
+    border: #f47801 solid 6px;
 }
 .grey{
     background-color: #282828;
@@ -84,8 +117,24 @@
 .side{
     width: 800px;
 }
-.orange:hover{
+.orange{
+    border:none;
     background-color: #f47801;
 }
+.orange:hover{
+    background-color: #white;
+}
+.limodal{
+    list-style: none;
+    margin-top: 18%;
+    margin-left: 8%;
+}
+ul.limodal li{
+    margin-bottom: 5%;
+}
+
+.bg-dark{
+    background-color : red;
+} 
 </style>
 @endsection
