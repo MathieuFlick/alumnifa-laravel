@@ -2,12 +2,10 @@
 @section('title', 'Annuaire')
 @section('content')
 <div id="recherche">
-    <form>
-        {{-- <input id="reinit" class="submit_recherche" type="submit" value="Voir tous les membres" name="reinit"> --}}
-    </form>
     <form id="form_recherche" method="POST">
-        <input type="text" name="search" id="recherche" placeholder="Rechercher dans l'annuaire" >
-        {{-- <input class="submit_recherche" type="submit" value="Rechercher" name="submit"> --}}
+        @csrf
+        <input type="hidden" name="search_id" id="recherche_id">
+        <input type="text" name="search" id="recherche_label" placeholder="Rechercher dans l'annuaire">
     </form>
 </div>
 <div id="membres">
@@ -65,26 +63,26 @@
 
 @section('scripts')
 <script>
-    let autocomplete = [];
+    let data = [];
     fetch('/directory/autocomplete').then(response => {
         return response.json()
-    }).then(data => {
-        for (let i = 0; i < data.length; i++) {
-            autocomplete.push(data[i])
+    }).then(json => {
+        for (let i = 0; i < json.length; i++) {
+            data.push(json[i])
         }
     })
-    $('#recherche').autocomplete({
-        source: autocomplete,
-        // focus: function( event, ui ) {
-        //     $("#recherche").val(ui.item.label);
-        //     return false;
-        // },
-        // select: function( event, ui ) {
-        //     $('#recherche').val(ui.item.label)
-        //     $('#recherche_id').val(ui.item.value)
 
-        //     return false
-        // }
+    $('#recherche_label').autocomplete({
+        source: data,
+        focus: function( event, ui ) {
+            $("#recherche_label").val(ui.item.label);
+            return false;
+        },
+        select: function( event, ui ) {
+            $('#recherche_label').val(ui.item.label)
+            $('#recherche_id').val(ui.item.value)
+            return false
+        }
     })
 </script>
 @endsection
