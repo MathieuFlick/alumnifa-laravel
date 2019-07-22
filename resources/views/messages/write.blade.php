@@ -9,7 +9,7 @@
             <div class="list-group">
                 <h6>Contact</h6>
                 @foreach($users as $user)
-                    <a class="list-group-item" href="{{route('conversations', $user->id)}}">{{$user->firstname." ".$user->lastname}}</a>
+                    <a class="list-group-item" href="{{route('messages.conversations', $user->id)}}">{{$user->firstname." ".$user->lastname}}</a>
                 @endforeach
             </div>
         </div>
@@ -18,15 +18,16 @@
                 <form class="form-group" method="POST">
                     @csrf
                     <input type="hidden" id="recipient_id" name="recipient_id">
-                    <input type="text" class="form-control" id="destinataire" name="destinataire"  placeholder="Entrez ici le destinataire du message">
+                    <input type="text" class="form-control" id="destinataire" name="destinataire" placeholder="Entrez ici le destinataire du message">
                     <small class="text-danger">{{ $errors->has('destinataire') ? $errors->first('destinataire') : null }}</small>
-                    <input type="text" class="form-control" id="object" name="object"  placeholder="Objet">
+                    <input type="text" class="form-control" id="object" name="object" placeholder="Objet">
                     <small class="text-danger">{{ $errors->has('object') ? $errors->first('object') : null }}</small>
-                    <textarea name="content" placeholder="Écrivez votre message" rows="5"class="form-control mt-5"></textarea>
+                    <textarea name="content" placeholder="Écrivez votre message" rows="5" class="form-control mt-5"></textarea>
                     <small class="text-danger">{{ $errors->has('content') ? $errors->first('content') : null }}</small>
                     <button class="btn btn-primary" type="submit">Envoyer</button>
                 </form>
-            <div class='card-body conversations'>
+                {{-- FERME TES DIV CDLT --}}
+            <div class='card-body conversations'></div>
         </div>
     </div>
 </div>

@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use App\Mail\ContactMessageCreated;
 Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', function () {
@@ -26,26 +28,33 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('register', 'Auth\RegisterController@register');
     });
 
-    Route::group(['prefix' => 'account', 'middleware' => ['auth', 'verified'], 'as' => 'account.'], function () {
-        Route::get('/', 'HomeController@index')->name('index');
+    Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('directory', 'DirectoryController@showView')->name('directory');
         Route::post('directory', 'DirectoryController@showView')->name('directory');
         Route::get('directory/autocomplete', 'DirectoryController@getAutocomplete')->name('autocomplete');
-      
-        Route::group(['prefix' => 'messages', 'as' => 'messages.'], function () {
-            Route::get('/', 'MessagesController@index')->name('index');
-            Route::get('delete/{id}', 'MessagesController@deleteMessage')->name('delete');
-            Route::get('conversations/{id}', 'MessagesController@reply')->name('conversations');
-            Route::post('conversations/{id}', 'MessagesController@store');
-            Route::get('read/{id}', 'MessagesController@read')->name('read');
-            Route::get('sent/', 'MessagesController@sent')->name('sent');
-            Route::get('sent/{id}', 'MessagesController@sentDelete')->name('sentDelete');
-            Route::get('sent/read/{id}', 'MessagesController@sentRead')->name('sentRead');
-            Route::get('write', 'MessagesController@writeMessage')->name('write');
-            Route::post('write', 'MessagesController@storeWriteMessage');
-            Route::get('autocomplete', 'MessagesController@getAutocomplete')->name('autocomplete');
-        });
+    }); 
+    
+
+    Route::group(['prefix' => 'account', 'middleware' => ['auth', 'verified'], 'as' => 'account.'], function () {
+        Route::get('/', 'HomeController@index')->name('index');
+        Route::get('/editProfil', 'HomeController@editView')->name('editView');
+        Route::post('/editProfil', 'HomeController@editView');
     });
+
+    Route::group(['prefix' => 'messages', 'as' => 'messages.'], function () {
+        Route::get('/', 'MessagesController@index')->name('index');
+        Route::get('delete/{id}', 'MessagesController@deleteMessage')->name('delete');
+        Route::get('conversations/{id}', 'MessagesController@reply')->name('conversations');
+        Route::post('conversations/{id}', 'MessagesController@store');
+        Route::get('read/{id}', 'MessagesController@read')->name('read');
+        Route::get('sent/', 'MessagesController@sent')->name('sent');
+        Route::get('sent/{id}', 'MessagesController@sentDelete')->name('sentDelete');
+        Route::get('sent/read/{id}', 'MessagesController@sentRead')->name('sentRead');
+        Route::get('write', 'MessagesController@writeMessage')->name('write');
+        Route::post('write', 'MessagesController@storeWriteMessage');
+        Route::get('autocomplete', 'MessagesController@getAutocomplete')->name('autocomplete');
+    });
+    
 
 
     Route::get('logout', 'Auth\LoginController@logout')->name('account.logout');
@@ -56,4 +65,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
     Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
     Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+    Route::get('contact', 'ContactController@create')->name('contact');
+    Route::post('contact', 'ContactController@store')->name('contact');
+    Route::get('mail', function() {return new ContactMessageCreated('Jean', "dupont", "Coucou fils d'eup !");});
 });

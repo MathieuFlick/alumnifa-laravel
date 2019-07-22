@@ -46,7 +46,7 @@
                                         <li>Promotion : {{ $user->promo }}</li>
                                         <li>Entreprise actuelle : {{ $user->company }}</li>
                                         <li>Poste occupé : {{ $user->post }}</li>
-                                        <li>Contact : <a href=""><img src="{{ asset('images/send.svg') }}"></a></li>
+                                    <li>Contact : <a href="{{route('messages.conversations', $user->id)}}"><img src="{{ asset('images/send.svg') }}"></a></li>
                                     </ul>
                                 </div>
                             </div>

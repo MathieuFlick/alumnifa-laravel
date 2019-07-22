@@ -16,7 +16,7 @@ class StudentsTableSeeder extends Seeder
         DB::table('students')->insert([
             'firstname' => 'Mathieu',
             'lastname' => 'Flick',
-            'dob' => '1981-10-11'
+            'dob' => '1981-10-11'      
         ]);
         
         DB::table('students')->insert([
@@ -76,7 +76,7 @@ class StudentsTableSeeder extends Seeder
             'password' => $password,
             'promo' => '2018-2019',
             'company' => 'IFA',
-            'post' => 'Étudiant'
+            'post' => 'Étudiant',
         ]);
 
         DB::table('users')->insert([
@@ -88,7 +88,9 @@ class StudentsTableSeeder extends Seeder
             'password' => $password,
             'promo' => '2018-2019',
             'company' => 'IFA',
-            'post' => 'Étudiant'
+            'post' => 'Étudiant',
+            'admin' => 1
+
         ]);
 
         DB::table('users')->insert([
@@ -100,7 +102,7 @@ class StudentsTableSeeder extends Seeder
             'password' => $password,
             'promo' => '2002-2004',
             'company' => 'IFA',
-            'post' => 'Directeur général'
+            'post' => 'Directeur général',
         ]);
 
         DB::table('users')->insert([
@@ -112,7 +114,7 @@ class StudentsTableSeeder extends Seeder
             'password' => $password,
             'promo' => '1997-1998',
             'company' => 'Upgrade Code',
-            'post' => 'Directeur général'
+            'post' => 'Directeur général',
         ]);
 
         DB::table('users')->insert([
@@ -124,7 +126,7 @@ class StudentsTableSeeder extends Seeder
             'password' => $password,
             'promo' => '2005-2006',
             'company' => 'Loréal',
-            'post' => 'Responsable communication'
+            'post' => 'Responsable communication',
         ]);
 
         DB::table('users')->insert([
@@ -136,7 +138,7 @@ class StudentsTableSeeder extends Seeder
             'password' => $password,
             'promo' => '1987-1988',
             'company' => 'Les Deschiens',
-            'post' => 'Comédien'
+            'post' => 'Comédien',
         ]);
 
         DB::table('users')->insert([
@@ -148,7 +150,7 @@ class StudentsTableSeeder extends Seeder
             'password' => $password,
             'promo' => '1984-1985',
             'company' => 'Dupont & Lajoie',
-            'post' => 'Président'
+            'post' => 'Président',
         ]);
 
         DB::table('users')->insert([
@@ -160,7 +162,7 @@ class StudentsTableSeeder extends Seeder
             'password' => $password,
             'promo' => '2009-2010',
             'company' => 'Dupont & Lajoie',
-            'post' => 'Chef de projet'
+            'post' => 'Chef de projet',
         ]);
 
         DB::table('users')->insert([
@@ -172,7 +174,7 @@ class StudentsTableSeeder extends Seeder
             'password' => $password,
             'promo' => '2009-2010',
             'company' => 'Paris Saint-Germain',
-            'post' => 'Footballer'
+            'post' => 'Footballer',
         ]);
     }
 }
