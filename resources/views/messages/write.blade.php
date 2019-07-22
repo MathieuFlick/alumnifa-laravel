@@ -9,7 +9,7 @@
             <div class="list-group">
                 <h6>Contact</h6>
                 @foreach($users as $user)
-                    <a class="list-group-item" href="{{route('account.messages.conversations', $user->id)}}">{{$user->firstname." ".$user->lastname}}</a>
+                    <a class="list-group-item" href="{{route('messages.conversations', $user->id)}}">{{$user->firstname." ".$user->lastname}}</a>
                 @endforeach
             </div>
         </div>
