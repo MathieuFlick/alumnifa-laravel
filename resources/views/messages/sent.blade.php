@@ -6,13 +6,13 @@
     @foreach($messages as $message)
         <div class="d-inline list-group-item">
             <div class="row">
-                    <a class="col-md-10"href="{{route('account.messages.sentRead', $message->message_id)}}">
+                    <a class="col-md-10"href="{{route('messages.sentRead', $message->message_id)}}">
                         <div class="row">
                             <p class="d-inline col-md-6">À : {{$message->firstname." ".$message->lastname}}</p>
                             <p class="d-inline col-md-6">Objet : {{$message->objet}}</p>
                         </div>
                     </a>
-                <p class="d-inline col-md-2"><a href="{{route('account.messages.sentDelete', $message->message_id)}}"><i class="fas fa-trash-alt"></i></a></p>
+                <p class="d-inline col-md-2"><a href="{{route('messages.sentDelete', $message->message_id)}}"><i class="fas fa-trash-alt"></i></a></p>
             </div>
         </div>
         @endforeach

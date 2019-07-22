@@ -13,8 +13,10 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
                     You are logged in!
+                </div>
+                <div>
+                    <a href="{{route('account.editView')}}">Editez votre profil</a>
                 </div>
             </div>
         </div>

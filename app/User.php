@@ -9,6 +9,8 @@ use App\Students;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
+    const ADMIN_TYPE = "admin";
+    const DEFAULT_TYPE = "default";
     use Notifiable;
 
     /**
