@@ -1,12 +1,14 @@
 @extends('layouts.app')
 @section('title', 'Annuaire')
 @section('content')
-<div id="recherche">
-    <form id="form_recherche" method="POST">
-        @csrf
-        <input type="text" name="search" id="recherche" placeholder="Rechercher dans l'annuaire">
-        <input class="btn btn-light orange" type="submit" value="Rechercher" name="submit">
-    </form>
+<div class="d-flex justify-content-between">
+    <div>
+        <form id="form_recherche" method="POST">
+            @csrf
+            <input type="text" name="search" id="recherche" placeholder="Rechercher dans l'annuaire" required>
+        </form>
+    </div>
+    <a href="{{route('directory')}}" class="btn btn-light orange">Réinitialiser</a>
 </div>
 <div id="membres">
     <div class="card-list">
@@ -46,7 +48,7 @@
                                         <li>Promotion : {{ $user->promo }}</li>
                                         <li>Entreprise actuelle : {{ $user->company }}</li>
                                         <li>Poste occupé : {{ $user->post }}</li>
-                                    <li>Contact : <a href="{{route('messages.conversations', $user->id)}}"><img src="{{ asset('images/send.svg') }}"></a></li>
+                                        <li>Contact : <a href="{{route('messages.conversations', $user->id)}}"><img src="{{ asset('images/send.svg') }}"></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -76,13 +78,17 @@
         source: data,
         focus: function( event, ui ) {
             $("#recherche").val(ui.item.label);
-            return false;
+            return search();
         },
         select: function( event, ui ) {
             $('#recherche').val(ui.item.label)
-            return false
+            return search();
         }
     })
+
+    function search() {
+        $('#form_recherche').submit();
+    }
 </script>
 @endsection
 
@@ -134,11 +140,6 @@ ul.limodal li{
 
 .bg-dark{
     background-color : red;
-}
-
-#recherche{
-    
-
 }
 </style>
 @endsection

@@ -30,7 +30,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('directory', 'DirectoryController@showView')->name('directory');
-        Route::post('directory', 'DirectoryController@showView')->name('directory');
+        Route::post('directory', 'DirectoryController@search')->name('directory.post');
         Route::get('directory/autocomplete', 'DirectoryController@getAutocomplete')->name('autocomplete');
     }); 
     
