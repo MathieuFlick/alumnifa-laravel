@@ -38,8 +38,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::group(['prefix' => 'account', 'middleware' => ['auth', 'verified'], 'as' => 'account.'], function () {
         Route::get('/', 'HomeController@index')->name('index');
-        Route::get('/editProfil', 'HomeController@editView')->name('editView');
-        Route::post('/editProfil', 'HomeController@editView');
+        Route::get('/edit', 'AccountController@get')->name('editView');
+        Route::post('/edit', 'AccountController@editPassword')->name('editView');
     });
 
     Route::group(['prefix' => 'messages', 'as' => 'messages.'], function () {
@@ -71,7 +71,4 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
     Route::get('contact', 'ContactController@create')->name('contact');
     Route::post('contact', 'ContactController@store')->name('contact');
-    Route::get('mail', function () {
-        return new ContactMessageCreated('Jean', "dupont", "Coucou fils d'eup !");
-    });
 });
