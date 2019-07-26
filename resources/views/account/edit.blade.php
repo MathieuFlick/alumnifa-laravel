@@ -3,14 +3,8 @@
 <div class="form-group">
     <form method="post" action=''>
         @csrf
-        <input type="text" name="firstname" class="form-control" placeholder='Entrez votre prénom'>
-        <small class="text-danger">{{ $errors->has('firstname') ? $errors->first('firstname') : null }}</small>
-        <input type="password" name="lastname" class="form-control" placeholder='Entrez votre nom'>
-        <small class="text-danger">{{ $errors->has('lastname') ? $errors->first('lastname') : null }}</small>
-        <input type="date" name="dob" class="form-control">
-        <small class="text-danger">{{ $errors->has('dob') ? $errors->first('dob') : null }}</small>
         <input type="text" name="email" class="form-control" placeholder='Entrez votre email'>
-        <small class="text-danger">{{ $errors->has('city') ? $errors->first('city') : null }}</small>
+        <small class="text-danger">{{ $errors->has('city') ? $errors->first('email') : null }}</small>
         <input type="text" name="city" class="form-control" placeholder='Ville de résidence'>
         <small class="text-danger">{{ $errors->has('city') ? $errors->first('city') : null }}</small>
         <input type="text" name="street" class="form-control" placeholder="Rue">

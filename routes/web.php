@@ -12,6 +12,7 @@
 */
 
 use App\Mail\ContactMessageCreated;
+
 Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', function () {
@@ -32,13 +33,13 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('directory', 'DirectoryController@showView')->name('directory');
         Route::post('directory', 'DirectoryController@showView')->name('directory');
         Route::get('directory/autocomplete', 'DirectoryController@getAutocomplete')->name('autocomplete');
-    }); 
-    
+    });
+
 
     Route::group(['prefix' => 'account', 'middleware' => ['auth', 'verified'], 'as' => 'account.'], function () {
         Route::get('/', 'HomeController@index')->name('index');
-        Route::get('/editProfil', 'HomeController@editView')->name('editView');
-        Route::post('/editProfil', 'HomeController@editView');
+        Route::get('/edit', 'AccountController@get')->name('editView');
+        Route::post('/edit', 'AccountController@editPassword')->name('editView');
     });
 
     Route::group(['prefix' => 'messages', 'as' => 'messages.'], function () {
@@ -54,8 +55,11 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('write', 'MessagesController@storeWriteMessage');
         Route::get('autocomplete', 'MessagesController@getAutocomplete')->name('autocomplete');
     });
-    
 
+    Route::group(['middleware' => ['admin']], function () {
+        Route::get('/admin', 'AdminController@get')->name('admin');
+        Route::get('/admin/delete/{id}', 'AdminController@deleteUser')->name('deleteUser');
+    });
 
     Route::get('logout', 'Auth\LoginController@logout')->name('account.logout');
     Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
@@ -67,5 +71,4 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
     Route::get('contact', 'ContactController@create')->name('contact');
     Route::post('contact', 'ContactController@store')->name('contact');
-    Route::get('mail', function() {return new ContactMessageCreated('Jean', "dupont", "Coucou fils d'eup !");});
 });
