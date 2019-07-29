@@ -36,4 +36,11 @@ class DirectoryController extends Controller
         
         return view('directory')->with(['users' => $users]);
     }
+
+    public function sort($i)
+    {
+        $users = User::where('promo', $i)->get();
+        return view('directory')->with(['users' => $users]);
+    }
+  
 }

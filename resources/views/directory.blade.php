@@ -5,7 +5,16 @@
     <div>
         <form id="form_recherche" method="POST">
             @csrf
-            <input type="text" name="search" id="recherche" placeholder="Rechercher dans l'annuaire" required>
+            <input type="text" name="search" id="recherche" placeholder="Rechercher dans l'annuaire">
+            <div class="form-group">
+            <select id="selectYear" class="form-control">
+                <option value="">Choix promotion</option>
+                @for ($i = 1986; $i <= date('Y'); $i++)
+                    <option value="{{$i}}">{{$i}}</option>
+                @endfor
+            </select>
+
+            </div>
         </form>
     </div>
     <a href="{{route('directory')}}" class="btn btn-light orange">Réinitialiser</a>
@@ -78,7 +87,7 @@
         source: data,
         focus: function( event, ui ) {
             $("#recherche").val(ui.item.label);
-            return search();
+            return false;
         },
         select: function( event, ui ) {
             $('#recherche').val(ui.item.label)
@@ -89,6 +98,12 @@
     function search() {
         $('#form_recherche').submit();
     }
+
+    $('#selectYear').change(function(e) {
+        let year = e.target.value
+
+        window.location.href = '/directory/'+ year
+    })
 </script>
 @endsection
 

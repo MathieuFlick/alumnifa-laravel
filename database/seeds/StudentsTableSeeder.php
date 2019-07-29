@@ -74,9 +74,11 @@ class StudentsTableSeeder extends Seeder
             'email' => 'mathieuflick@gmail.com',
             'pseudo' => 'mathflick',
             'password' => $password,
-            'promo' => '2018-2019',
+            'formation' => 'Développeur Web',
+            'promo' => '2019',
             'company' => 'IFA',
             'post' => 'Étudiant',
+            'admin' => 1
         ]);
 
         DB::table('users')->insert([
@@ -86,7 +88,8 @@ class StudentsTableSeeder extends Seeder
             'email' => 'thibault.jamin@gmx.com',
             'pseudo' => 'thibjam',
             'password' => $password,
-            'promo' => '2018-2019',
+            'formation' => 'Développeur Web',
+            'promo' => '2019',
             'company' => 'IFA',
             'post' => 'Étudiant',
             'admin' => 1
@@ -100,9 +103,10 @@ class StudentsTableSeeder extends Seeder
             'email' => 'hervepadilla@ifa.com',
             'pseudo' => 'herpadweb',
             'password' => $password,
-            'promo' => '2002-2004',
+            'formation' => 'Communication Marketing',
+            'promo' => '2004',
             'company' => 'IFA',
-            'post' => 'Directeur général',
+            'post' => 'Directeur général'
         ]);
 
         DB::table('users')->insert([
@@ -112,7 +116,8 @@ class StudentsTableSeeder extends Seeder
             'email' => 'nizar.ayed@upgrade-code.org',
             'pseudo' => 'topniz',
             'password' => $password,
-            'promo' => '1997-1998',
+            'formation' => 'Communication Marketing',
+            'promo' => '1998',
             'company' => 'Upgrade Code',
             'post' => 'Directeur général',
         ]);
@@ -124,7 +129,8 @@ class StudentsTableSeeder extends Seeder
             'email' => 'marynadubois@gmail.com',
             'pseudo' => 'maridu',
             'password' => $password,
-            'promo' => '2005-2006',
+            'formation' => 'Communication Marketing',
+            'promo' => '2006',
             'company' => 'Loréal',
             'post' => 'Responsable communication',
         ]);
@@ -136,7 +142,8 @@ class StudentsTableSeeder extends Seeder
             'email' => 'philippeduquesne@gmail.com',
             'pseudo' => 'phildu',
             'password' => $password,
-            'promo' => '1987-1988',
+            'formation' => 'Ressources Humaines',
+            'promo' => '1988',
             'company' => 'Les Deschiens',
             'post' => 'Comédien',
         ]);
@@ -148,7 +155,8 @@ class StudentsTableSeeder extends Seeder
             'email' => 'jeandupont@dupontlajoie.com',
             'pseudo' => 'dubonjean',
             'password' => $password,
-            'promo' => '1984-1985',
+            'formation' => 'Communication Marketing',
+            'promo' => '1985',
             'company' => 'Dupont & Lajoie',
             'post' => 'Président',
         ]);
@@ -160,7 +168,8 @@ class StudentsTableSeeder extends Seeder
             'email' => 'pierredupont@dupontlajoie.com',
             'pseudo' => 'pierredup',
             'password' => $password,
-            'promo' => '2009-2010',
+            'formation' => 'Communication Marketing',
+            'promo' => '2010',
             'company' => 'Dupont & Lajoie',
             'post' => 'Chef de projet',
         ]);
@@ -172,7 +181,8 @@ class StudentsTableSeeder extends Seeder
             'email' => 'kylianmbappe@gmail.com.com',
             'pseudo' => 'KMB7',
             'password' => $password,
-            'promo' => '2009-2010',
+            'formation' => 'Ressources Humaines',
+            'promo' => '2016',
             'company' => 'Paris Saint-Germain',
             'post' => 'Footballer',
         ]);

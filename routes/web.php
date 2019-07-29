@@ -33,6 +33,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('directory', 'DirectoryController@showView')->name('directory');
         Route::post('directory', 'DirectoryController@search')->name('directory.post');
         Route::get('directory/autocomplete', 'DirectoryController@getAutocomplete')->name('autocomplete');
+        Route::get('directory/{i}', 'DirectoryController@sort')->name('directory.sort');
     });
 
 
