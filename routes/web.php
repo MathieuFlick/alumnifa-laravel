@@ -40,7 +40,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::group(['prefix' => 'account', 'middleware' => ['auth', 'verified'], 'as' => 'account.'], function () {
         Route::get('/', 'HomeController@index')->name('index');
         Route::get('/edit', 'AccountController@get')->name('editView');
-        Route::post('/edit', 'AccountController@editPassword')->name('editView');
+        Route::post('/edit', 'AccountController@edit')->name('editView');
     });
 
     Route::group(['prefix' => 'messages', 'as' => 'messages.'], function () {

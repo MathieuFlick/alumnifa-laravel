@@ -4,7 +4,7 @@
     <form method="post" action=''>
         @csrf
         <input type="text" name="email" class="form-control" placeholder='Entrez votre email'>
-        <small class="text-danger">{{ $errors->has('city') ? $errors->first('email') : null }}</small>
+        <small class="text-danger">{{ $errors->has('email') ? $errors->first('email') : null }}</small>
         <input type="text" name="city" class="form-control" placeholder='Ville de résidence'>
         <small class="text-danger">{{ $errors->has('city') ? $errors->first('city') : null }}</small>
         <input type="text" name="street" class="form-control" placeholder="Rue">
