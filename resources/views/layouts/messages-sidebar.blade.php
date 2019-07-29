@@ -11,6 +11,7 @@
                 <div class="card">
                     <div class="card-header" id="headingOne">
                         <h6 class="mb-0">
+                            <a href="{{route('messages.index')}}">Messages reçus</a>
                             <a href="{{route('messages.sent')}}">Messages envoyés</a>
                             <button class ="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Contacts</button>
                         </h6>
