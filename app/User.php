@@ -19,7 +19,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'pseudo', 'firstname', 'lastname', 'dob', 'email', 'password',
+        'pseudo', 'firstname', 'lastname', 'dob', 'email', 'password', 'city', 'street', 'company', 'post', 'number',
     ];
 
     /**
@@ -44,7 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'dob'
     ];
 
-    public static function checkStudent(Array $datas)
+    public static function checkStudent(array $datas)
     {
         $student = Students::where([
             ['firstname', '=', $datas['firstname']],
@@ -52,7 +52,7 @@ class User extends Authenticatable implements MustVerifyEmail
             ['dob', '=', $datas['dob']]
         ])->first();
 
-        if($student) {
+        if ($student) {
             return true;
         } else {
             return false;
