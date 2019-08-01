@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMessageCreated;
+use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
 {
@@ -14,8 +15,24 @@ class ContactController extends Controller
     }
     public function store(Request $request)
     {
-        $mailable = new ContactMessageCreated($request->name, $request->mail, $request->message);
-        Mail::to("thibault.jamin@gmx.com")->send($mailable);
-        return "Votre message a été envoyé avec succès !";
+        $validator = Validator::make($request->all(), [
+            'object' => 'required|max:100',
+            'mail' => 'email',
+            'content' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        } else {
+            Contact::create([
+                'sender_mail' => $request->mail,
+                'objet' => $request->object,
+                'content' => $request->content
+            ]);
+
+            $mailable = new ContactMessageCreated($request->name, $request->mail, $request->message);
+            //Mail::to("thibault.jamin@gmx.com")->send($mailable);
+            // return "Votre message a été envoyé avec succès !";
+        }
     }
 }

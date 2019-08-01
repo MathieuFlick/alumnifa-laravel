@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,19 +25,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('account.index');
+        $user = Auth::user();
+        return view('account.index')->with('user', $user);
     }
 
-    public function editView() {
+    public function editView()
+    {
         return view('account.edit');
     }
 
-    public static function edit(Request $request, $field, $test) {
+    public static function edit(Request $request, $field, $test)
+    {
         if (auth()->guest()) {
             flash("Vous devez être connecté pour accéder à cette page.")->error();
             return redirect("auth.login");
         }
-        if(!empty($request->input($field))) {
+        if (!empty($request->input($field))) {
             $validator = Validator::make($request->all(), [
                 $field => $test,
             ]);
@@ -47,19 +51,19 @@ class HomeController extends Controller
                 $field => bcrypt(request($field)),
             ]);
             return back()->with('message', 'Les modifications de votre profil ont bien été prises en compte.');
-        }
-        else{ 
+        } else {
             return back()->with("message", "Vous n'avez effectué aucun changement sur votre profil.");
         }
     }
 
 
-    public function editPassword(Request $request) {
+    public function editPassword(Request $request)
+    {
         if (auth()->guest()) {
             flash("Vous devez être connecté pour accéder à cette page.")->error();
             return redirect("auth.login");
         }
-        if(!empty($request->input('password'))) {
+        if (!empty($request->input('password'))) {
             $validator = Validator::make($request->all(), [
                 'password' => 'min:8|confirmed',
                 'password_confirmation' => 'min:8',
@@ -71,8 +75,7 @@ class HomeController extends Controller
                 'password' => bcrypt(request('password')),
             ]);
             return back()->with('message', 'Les modifications de votre profil ont bien été prises en compte.');
-        }
-        else{ 
+        } else {
             return back()->with("message", "Vous n'avez effectué aucun changement sur votre profil.");
         }
     }
