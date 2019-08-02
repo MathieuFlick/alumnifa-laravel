@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
-    public function get()
+    public function getEdit()
     {
         return view('account.edit');
     }
