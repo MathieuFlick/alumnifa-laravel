@@ -11,8 +11,6 @@
 |
 */
 
-use App\Mail\ContactMessageCreated;
-
 Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', function () {
@@ -33,7 +31,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('directory', 'DirectoryController@showView')->name('directory');
         Route::post('directory', 'DirectoryController@search')->name('directory.post');
         Route::get('directory/autocomplete', 'DirectoryController@getAutocomplete')->name('autocomplete');
-        Route::get('directory/{i}', 'DirectoryController@sort')->name('directory.sort');
+        Route::get('directory/year/{i}', 'DirectoryController@sortYear')->name('directory.sort');
+        Route::get('directory/years', 'DirectoryController@getYears')->name('directory.years');
+        Route::get('directory/promo', 'DirectoryController@getPromo')->name('directory.promo');
     });
 
 

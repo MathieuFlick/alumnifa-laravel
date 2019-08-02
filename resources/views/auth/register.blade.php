@@ -20,6 +20,10 @@
                                 </span>
                                 @enderror
                             </div>
+                            <div class="col-md-6">
+                                <label for="photo">Photo de profil</label>
+                                <input id="photo" type="file" class="form-control">
+                            </div>
                         </div>
 
                         <div class="form-group row">

@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\DB;
 
 class DirectoryController extends Controller
 {
     public function showView()
     {
-        return view('directory')->with("users", User::orderBy('lastname', 'asc')->get());
+        $users = User::orderBy('lastname', 'asc')->get();
+        $years = DB::table('users')->select('promo')->get()->toArray();
+        return view('directory')->with(["users" => $users, "years" => $years]); 
     }
 
     public function getAutocomplete()
@@ -27,20 +30,56 @@ class DirectoryController extends Controller
 
     public function search(Request $request)
     {
-        $search = explode(" ", $request->search);
-        $users = User::where('firstname', 'like', '%'.$search[0].'%')->orWhere('lastname', 'like', '%'.$search[0].'%');
-        if(count($search) > 1) {
-            $users = $users->where('firstname', 'like', '%'.$search[1].'%')->orWhere('lastname', 'like', '%'.$search[1].'%');
+        if($request->name) {
+            $search = explode(" ", $request->name);
+            $users = User::where('firstname', 'like', '%'.$search[0].'%')->orWhere('lastname', 'like', '%'.$search[0].'%');
+            if(count($search) > 1) {
+                $users = $users->where('firstname', 'like', '%'.$search[1].'%')->orWhere('lastname', 'like', '%'.$search[1].'%');
+            }
         }
-        $users = $users->get();
+
+        if($request->promo) {
+            if(isset($users)) {
+                $users = $users->where('formation', $request->promo);
+            } else {
+                $users = User::where('formation', $request->promo);
+            }
+        }
+        if($request->year) {
+            if(isset($users)) {
+                $users = $users->where('promo', $request->year);
+            } else {
+                $users = User::where('promo', $request->year);
+            }
+        }
         
+        if(isset($users)) {
+            $users = $users->get();
+        } else {
+            $users = User::all();
+        }
         return view('directory')->with(['users' => $users]);
     }
 
-    public function sort($i)
+    public function getYears()
     {
-        $users = User::where('promo', $i)->get();
-        return view('directory')->with(['users' => $users]);
+        $years = DB::table('users')->select('promo')->get();
+        for ($i=0; $i < count($years); $i++) { 
+            $data[] = $years[$i]->promo;
+        }
+        $data = array_unique($data);
+        sort($data);
+        return response()->json($data);
     }
-  
+
+    public function getPromo()
+    {
+        $promo = DB::table('users')->select('formation')->get();
+        for ($i = 0; $i < count($promo); $i++) {
+            $data[] = $promo[$i]->formation;
+        }
+        $data = array_unique($data);
+        sort($data);
+        return response()->json($data);
+    }
 }

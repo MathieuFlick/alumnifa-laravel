@@ -1,22 +1,22 @@
 @extends('layouts.app')
 @section('title', 'Annuaire')
 @section('content')
-<div class="d-flex justify-content-between">
-    <div>
-        <form id="form_recherche" method="POST">
-            @csrf
-            <input type="text" name="search" id="recherche" placeholder="Rechercher dans l'annuaire">
-            <div class="form-group">
-            <select id="selectYear" class="form-control">
-                <option value="">Choix promotion</option>
-                @for ($i = 1986; $i <= date('Y'); $i++)
-                    <option value="{{$i}}">{{$i}}</option>
-                @endfor
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <form id="form_recherche" class="d-flex align-items-center" method="POST">
+        @csrf
+        <input type="text" name="name" id="recherche" class="form-control mr-3" style="width:200px;" placeholder="Rechercher">
+        <div class="form-group mr-3 mb-0">
+            <select id="selectPromo" name="promo" class="form-control">
+                <option value selected disabled>Promotion</option>
             </select>
-
-            </div>
-        </form>
-    </div>
+        </div>
+        <div class="form-group mb-0 mr-3">
+            <select id="selectYear" name="year" class="form-control">
+                <option value selected disabled>Année</option>
+            </select>
+        </div>
+        <button class="btn"><i class="fas fa-search"></i></button>
+    </form>
     <a href="{{route('directory')}}" class="btn btn-light orange">Réinitialiser</a>
 </div>
 <div id="membres">
@@ -27,7 +27,7 @@
                 <h5 class="card-title">{{ $user->firstname }} {{ $user->lastname }}</h5>
             </div>
         @empty
-            <p>No users</p>.
+            <div class="alert alert-danger">1, 2, 3 il n'y à rien par là</div>
         @endforelse
     </div>
 </div>
@@ -74,17 +74,16 @@
 
 @section('scripts')
 <script>
-    let data = [];
+    let names = [];
     fetch('/directory/autocomplete').then(response => {
         return response.json()
     }).then(json => {
         for (let i = 0; i < json.length; i++) {
-            data.push(json[i])
+            names.push(json[i])
         }
     })
-
     $('#recherche').autocomplete({
-        source: data,
+        source: names,
         focus: function( event, ui ) {
             $("#recherche").val(ui.item.label);
             return false;
@@ -94,16 +93,27 @@
             return search();
         }
     })
-
     function search() {
         $('#form_recherche').submit();
     }
 
-    $('#selectYear').change(function(e) {
-        let year = e.target.value
-
-        window.location.href = '/directory/'+ year
+    fetch('/directory/years').then(res => {
+        return res.json();
+    }).then(data => {
+        for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+            $('#selectYear').append('<option value="'+element+'">'+element+'</option>');
+        }
     })
+    fetch('/directory/promo').then(res => {
+        return res.json();
+    }).then(data => {
+        for (let i = 0; i < data.length; i++) {
+            const element = data[i];
+            $('#selectPromo').append('<option value="'+element+'">'+element+'</option>');
+        }
+    })
+
 </script>
 @endsection
 
