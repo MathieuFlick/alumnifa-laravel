@@ -8,7 +8,7 @@
                 <div class="card-header">{{__('Register')}}</div>
                 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('auth.register') }}">
+                    <form method="POST" enctype="multipart/form-data" action="{{ route('auth.register') }}">
                         @csrf
                         <div class="form-group row">
                             <div class="col-md-6">
@@ -22,7 +22,12 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="photo">Photo de profil</label>
-                                <input id="photo" type="file" class="form-control">
+                                <input id="photo" type="file" name="avatar">
+                                 @error('avatar')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                         </div>
 

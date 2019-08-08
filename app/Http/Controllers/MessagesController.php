@@ -117,18 +117,6 @@ class MessagesController extends Controller
         return back()->with('message', 'Votre message a bien été envoyé !');
     }
 
-    public function getAutocomplete()
-    {
-        $users = User::where('id', '!=', $this->user->id)->get();
-        $data = [];
-
-        for ($i = 0; $i < count($users); $i++) {
-            $data[$i]['label'] = $users[$i]->firstname . " " . $users[$i]->lastname;
-            $data[$i]['value'] = $users[$i]->id;
-        }
-
-        return response()->json($data);
-    }
     public function sent()
     {
         $users = User::where('id', '!=', $this->user->id)->get();
@@ -146,6 +134,7 @@ class MessagesController extends Controller
 
         return view('messages.sent')->with(['messages' => $messages, 'users' => $users]);
     }
+
     public function sentRead(int $message_id)
     {
         $users = User::where('id', '!=', $this->user->id)->get();

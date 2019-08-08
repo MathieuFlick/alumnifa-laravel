@@ -23,11 +23,11 @@
     <div class="card-list">
         @forelse ($users as $user)
             <div class="card bg-dark text-white" data-toggle="modal" data-target="#info-{{ $user->id }}">
-                <img class="card-img-top" src="{{ asset('images/profil/'.$user->id.'.JPG') }}">
+                <img class="card-img-top" src="{{ $user->avatar }}">
                 <h5 class="card-title">{{ $user->firstname }} {{ $user->lastname }}</h5>
             </div>
         @empty
-            <div class="alert alert-danger">1, 2, 3 il n'y à rien par là</div>
+            <div class="alert alert-danger">Aucun résultat ne correspond à votre recherche</div>
         @endforelse
     </div>
 </div>
@@ -48,7 +48,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col">
-                                    <img class="card-img-top photo" src="{{ asset('images/profil/'.$user->id.'.JPG') }}" alt="{{ $user->pseudo }}">
+                                    <img class="card-img-top photo" src="{{ $user->avatar }}" alt="{{ $user->pseudo }}">
                                 </div>
                                 <div class="col">
                                     <ul class="limodal">

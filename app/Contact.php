@@ -14,6 +14,6 @@ class Contact extends Model
      * @var array
      */
     protected $fillable = [
-        'sender_mail', 'objet', 'content',
+        'sender', 'objet', 'body',
     ];
 }

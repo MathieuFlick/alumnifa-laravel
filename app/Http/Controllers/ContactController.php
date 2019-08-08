@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMessageCreated;
 use Illuminate\Support\Facades\Validator;
+use App\Contact;
 
 class ContactController extends Controller
 {
@@ -25,14 +26,14 @@ class ContactController extends Controller
             return back()->withErrors($validator)->withInput();
         } else {
             Contact::create([
-                'sender_mail' => $request->mail,
+                'sender' => $request->mail,
                 'objet' => $request->object,
-                'content' => $request->content
+                'body' => $request->content
             ]);
 
             $mailable = new ContactMessageCreated($request->name, $request->mail, $request->message);
-            //Mail::to("thibault.jamin@gmx.com")->send($mailable);
-            // return "Votre message a été envoyé avec succès !";
+            Mail::to("thibault.jamin@gmx.com")->send($mailable);
+            return "Votre message a été envoyé avec succès !";
         }
     }
 }

@@ -54,7 +54,7 @@ Route::group(['middleware' => ['web']], function () {
         Route::get('sent/read/{id}', 'MessagesController@sentRead')->name('sentRead');
         Route::get('write', 'MessagesController@writeMessage')->name('write');
         Route::post('write', 'MessagesController@storeWriteMessage');
-        Route::get('autocomplete', 'MessagesController@getAutocomplete')->name('autocomplete');
+        Route::get('autocomplete', 'MessagesController@getUsers')->name('getUsers');
     });
 
     Route::group(['middleware' => ['admin']], function () {

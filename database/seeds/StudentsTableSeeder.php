@@ -16,13 +16,13 @@ class StudentsTableSeeder extends Seeder
         DB::table('students')->insert([
             'firstname' => 'Mathieu',
             'lastname' => 'Flick',
-            'dob' => '1981-10-11'      
-        ]);
+            'dob' => '1981-10-11'
+            ]);
         
         DB::table('students')->insert([
-                'firstname' => 'Thibault',
-                'lastname' => 'Jamin',
-                'dob' => '1987-05-27'
+            'firstname' => 'Thibault',
+            'lastname' => 'Jamin',
+            'dob' => '1987-05-27'
             ]);
 
         DB::table('students')->insert([
@@ -67,6 +67,12 @@ class StudentsTableSeeder extends Seeder
             'dob' => '1998-12-20'
         ]);
 
+        DB::table('students')->insert([
+            'firstname' => 'Isabelle',
+            'lastname' => 'Hiks',
+            'dob' => '1975-04-30'
+        ]);
+
         DB::table('users')->insert([
             'firstname' => 'Mathieu',
             'lastname' => 'Flick',
@@ -79,6 +85,7 @@ class StudentsTableSeeder extends Seeder
             'company' => 'IFA',
             'post' => 'Étudiant',
             'admin' => 1
+            'avatar' => 'http://alumnifa.local/storage/avatars/1.jpg'
         ]);
 
         DB::table('users')->insert([
@@ -92,8 +99,7 @@ class StudentsTableSeeder extends Seeder
             'promo' => '2019',
             'company' => 'IFA',
             'post' => 'Étudiant',
-            'admin' => 1
-
+            'avatar' => 'http://alumnifa.local/storage/avatars/2.jpg'
         ]);
 
         DB::table('users')->insert([
@@ -107,6 +113,7 @@ class StudentsTableSeeder extends Seeder
             'promo' => '2004',
             'company' => 'IFA',
             'post' => 'Directeur général'
+            'avatar' => 'http://alumnifa.local/storage/avatars/3.jpg'
         ]);
 
         DB::table('users')->insert([
@@ -120,6 +127,7 @@ class StudentsTableSeeder extends Seeder
             'promo' => '1998',
             'company' => 'Upgrade Code',
             'post' => 'Directeur général',
+            'avatar' => 'http://alumnifa.local/storage/avatars/4.jpg'
         ]);
 
         DB::table('users')->insert([
@@ -133,6 +141,7 @@ class StudentsTableSeeder extends Seeder
             'promo' => '2006',
             'company' => 'Loréal',
             'post' => 'Responsable communication',
+            'avatar' => 'http://alumnifa.local/storage/avatars/5.jpg'
         ]);
 
         DB::table('users')->insert([
@@ -146,6 +155,7 @@ class StudentsTableSeeder extends Seeder
             'promo' => '1988',
             'company' => 'Les Deschiens',
             'post' => 'Comédien',
+            'avatar' => 'http://alumnifa.local/storage/avatars/6.jpg'
         ]);
 
         DB::table('users')->insert([
@@ -159,6 +169,7 @@ class StudentsTableSeeder extends Seeder
             'promo' => '1985',
             'company' => 'Dupont & Lajoie',
             'post' => 'Président',
+            'avatar' => 'http://alumnifa.local/storage/avatars/7.jpg'
         ]);
 
         DB::table('users')->insert([
@@ -172,6 +183,7 @@ class StudentsTableSeeder extends Seeder
             'promo' => '2010',
             'company' => 'Dupont & Lajoie',
             'post' => 'Chef de projet',
+            'avatar' => 'http://alumnifa.local/storage/avatars/8.jpg'
         ]);
 
         DB::table('users')->insert([
@@ -185,6 +197,7 @@ class StudentsTableSeeder extends Seeder
             'promo' => '2016',
             'company' => 'Paris Saint-Germain',
             'post' => 'Footballer',
+            'avatar' => 'http://alumnifa.local/storage/avatars/9.jpg'
         ]);
     }
 }

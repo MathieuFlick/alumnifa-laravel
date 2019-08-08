@@ -16,7 +16,11 @@
                 <form class="form-group" method="POST">
                     @csrf
                     <input type="hidden" id="recipient_id" name="recipient_id">
-                    <input type="text" class="form-control mb-1" id="destinataire" name="destinataire" placeholder="Entrez ici le destinataire du message">
+                    <select name="destinataire" class="form-control selectpicker" data-live-search="true" title="Choisissez un destinataire">
+                        @foreach($users as $user)
+                            <option data-tokens="{{$user->pseudo}} {{$user->email}}" value="{{$user->email}}">{{$user->pseudo}} - {{$user->email}}</option>
+                        @endforeach
+                    </select>
                     <small class="text-danger">{{ $errors->has('destinataire') ? $errors->first('destinataire') : null }}</small>
                     <input type="text" class="form-control" id="object" name="object" placeholder="Objet">
                     <small class="text-danger">{{ $errors->has('object') ? $errors->first('object') : null }}</small>

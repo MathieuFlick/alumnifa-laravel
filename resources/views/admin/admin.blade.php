@@ -1,5 +1,5 @@
-@extends('layouts.app')
-@section('content')
+@extends('layouts.admin-sidebar')
+@section('subview')
 <table class="table">
   <thead>
     <tr>

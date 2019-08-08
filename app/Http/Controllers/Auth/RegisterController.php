@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Image;
 
 class RegisterController extends Controller
 {
@@ -47,6 +48,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'dob' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'avatar' => ['nullable', 'image']
         ]);
 
         if($validation->fails()) {
@@ -59,6 +61,16 @@ class RegisterController extends Controller
             "dob" => $request->dob
         ]);
 
+        if (isset($request->avatar)) {
+            // $path = $request->file('avatar')->store('public/avatars');
+            $name = str_random(40) . '.jpg';
+            Image::make($request->avatar)->resize(500, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->crop(500, 500, 0, 0)->encode('jpg')->save(storage_path('app/public/avatars/') . $name);
+            $path = url('storage/avatars/'.$name);
+        } else {
+            $path = url('storage/avatars/placeholder.gif');
+        }
         if ($checkStudent) {
             $user = User::create([
                 'firstname' => $request->firstname,
@@ -67,6 +79,7 @@ class RegisterController extends Controller
                 'email' => $request->email,
                 'dob' => $request->dob,
                 'password' => Hash::make($request->password),
+                'avatar' => $path
             ]);
 
             $credentials = $request->only('email', 'password');
